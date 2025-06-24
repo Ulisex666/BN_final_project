@@ -290,11 +290,33 @@ class BayesNet:
                 if self.get_num_parents(child) - 1 == 0:
                     roots.append(child) 
                     
+        # TODO: Bug al detectar ciclos con 3 nodos
         if len(sorting) < self.get_num_nodes():
             warnings.warn('Cycle detected!')
             cycle = True
             
-        return sorting, cycle
+        return sorting
+    
+    def to_graphviz(self, filename=None):
+        try:
+            import graphviz
+        except ImportError:
+            raise ImportError("'graphviz' library and software required")
+        
+        dot = graphviz.Digraph(name=self.BN_name, format='png')
+        
+        for node_name in self.get_nodes():
+            dot.node(node_name)
+            
+        for edge in self.get_edges():
+            parent = edge[0]
+            child = edge[1]
+            dot.edge(parent, child)
+            
+        if filename:
+            dot.render(filename, view=True)
+        return dot
+            
         
 def chow_liu(df: pd.DataFrame, bn: BayesNet):
     vars_names = df.columns.to_list()

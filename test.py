@@ -15,14 +15,22 @@ import pandas as pd
 # test_net.reverse_edge(('A', 'B'))
 # print(test_net.get_edges())
 
-data = {
+
+# This data configuration causes a bug with the topological order
+# data_cooper_bug = {
+#     'x1': [1,1,1,1,0,0,1,1,1,0],
+#     'x2': [0,1,1,1,1,1,1,0,1,0],
+#     'x3': [0,1,1,1,0,1,1,0,1,0]
+# }
+
+data_cooper = {
     'x1': [1,1,0,1,0,0,1,0,1,0],
     'x2': [0,1,0,1,0,1,1,0,1,0],
     'x3': [0,1,1,1,0,1,1,0,1,0]
-    }
+}
 
-df = pd.DataFrame(data)
+df = pd.DataFrame(data_cooper)
 bn = BayesNet('ChowLiu')
 
 bn = chow_liu(df, bn)
-print(f'Edges: {bn.get_edges()}')
+print(bn.to_graphviz('test_cooper'))
