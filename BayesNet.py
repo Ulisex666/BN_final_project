@@ -7,16 +7,25 @@ class Node:
     Class defining the nodes that form the Bayesian Network. 
     Name and number of parents and children as attributes.
     Attribute node contains the names of parents and children of current node.
-    Current implementation only needs the name of the variable being represented.
+    Can specify multiple parents and children.
     TODO: Define and add CPT
     '''
-    def __init__(self, var_name:str):
+    def __init__(self, var_name:str, parents:list[str] = [], children:list[str] = []):
         """
         Initially the node doesnt have either parents or children. TODO: Add capability to
         define parents and children.
         """
         self.var_name = var_name
         self.node = {'Parents':[], 'Children':[], 'CPT':None}
+        
+        if parents is not None:
+            for parent in parents:
+                self.node['Parents'].append(parent)
+                
+        if children is not None:
+            for child in children:
+                self.node['Children'].append(child)
+                
         self.num_parents = len(self.node['Parents'])
         self.num_children = len(self.node['Children'])
         
@@ -38,6 +47,26 @@ class Node:
         """
         self.node['Children'].append(child_name)
         self._update_num_children()
+        
+    def del_child(self, child_name:str):
+        """
+        Deletes child from children list.
+        Inputs: Child to be killed name.
+        Returns: None
+        """
+        if not child_name in self.node['Children']:
+            raise KeyError(f'{child_name} not in children')
+        self.node['Children'].remove(child_name)
+        
+    def del_parent(self, parent_name:str):
+        """
+        Deletes parent from parents list.
+        Inputs: Parent to be killed.
+        Returns: None
+        """
+        if not parent_name in self.node['Parents']:
+            raise KeyError(f'{parent_name} not in parents')
+        self.node['Parents'].remove(parent_name)
         
     def get_parents(self) -> list:
         """
@@ -63,6 +92,11 @@ class Node:
         """
         self.num_children = len(self.node['Children'])
     
+class CPT:
+    def __init__(self) -> None:
+        pass
+    pass
+
 
 class BayesNet:
     """
@@ -88,12 +122,17 @@ class BayesNet:
         new_node:Node = Node(var_name)
         self.graph['Nodes'][var_name] = new_node
 
-    def add_edge(self, parent_node:str, child_node:str):
+    def add_edge(self, edge:tuple[str, str]):
         """
         Adds an edge between two nodes in the net. If one or both are missing, it adds
         them to the BN. If the edge is already present, then it raises a warning and 
         DOESN'T add it.
+        Input: Edge as a tuple, e.g., ('A', 'B').
+        Returns: None
         """
+        parent_node = edge[0]
+        child_node = edge[1]
+        
         if (parent_node, child_node) in self.graph['Edges']:
             warnings.warn('Edge already in BN')
             return
@@ -107,6 +146,69 @@ class BayesNet:
         self.graph['Edges'].append((parent_node, child_node))
         self.graph['Nodes'][parent_node].add_child(child_node)
         self.graph['Nodes'][child_node].add_parent(parent_node)
+        
+    def del_edge(self, edge:tuple[str, str]):
+        """
+        Deletes an edge from the network. Returns a warning if the edge or any
+        of the nodes is missing from the net. It DOESN'T add or delete any edges in
+        that case.
+        Inputs: Edge as a tuple, e.g., ('A', 'B')
+        Returns: None
+        """
+        parent_node = edge[0]
+        child_node = edge[1]
+        
+        if not (parent_node, child_node) in self.graph['Edges']:
+            warnings.warn('Edge not present in BN')
+            return
+        
+        if not parent_node in self.graph['Nodes']:
+            warnings.warn(f'{parent_node} not present in BN')
+            return
+        
+        if not child_node in self.graph['Nodes']:
+            warnings.warn(f'{child_node} not present in BN')
+            return
+        
+        self.graph['Edges'].remove((parent_node, child_node))
+        
+        self.graph['Nodes'][parent_node].del_child(child_node)
+        self.graph['Nodes'][child_node].del_parent(parent_node)
+        
+    def reverse_edge(self, edge:tuple[str, str]):
+        """
+        Reverses an edge from the network. Returns a warning if the edge or any
+        of the nodes is missing from the net. It DOESN'T add or delete any edges in
+        that case.
+        Inputs: Edge as a tuple, e.g., ('A', 'B')
+        Returns: None
+        """
+        old_parent_node = edge[0]
+        old_child_node = edge[1]
+        
+        if not (old_parent_node, old_child_node) in self.graph['Edges']:
+            warnings.warn('Edge not present in BN')
+            return
+        
+        if not old_parent_node in self.graph['Nodes']:
+            warnings.warn(f'{old_parent_node} not present in BN')
+            return
+        
+        if not old_child_node in self.graph['Nodes']:
+            warnings.warn(f'{old_child_node} not present in BN')
+            return
+        
+        self.graph['Edges'].remove((old_parent_node, old_child_node))
+        self.graph['Nodes'][old_parent_node].del_child(old_child_node)
+        self.graph['Nodes'][old_child_node].del_parent(old_parent_node)
+        
+        new_parent_node = old_child_node
+        new_child_node = old_parent_node
+        
+        self.graph['Edges'].append((new_parent_node, new_child_node))
+        self.graph['Nodes'][new_parent_node].add_child(new_child_node)
+        self.graph['Nodes'][new_child_node].add_parent(new_parent_node)
+        
         
     def get_nodes(self) -> list:
         """
@@ -126,7 +228,7 @@ class BayesNet:
         """
         return self.graph['Edges']
     
-    def get_orphans(self) -> list:
+    def get_roots(self) -> list:
         """
         Finds all nodes without parents in the BN, and returns their names as a list.
         """
@@ -139,6 +241,7 @@ class BayesNet:
         Checks if input edge is already present in the BN
         """
         return edge in self.graph['Edges']
+    
     
     def get_children(self, node:str) -> list:
         """
@@ -168,7 +271,8 @@ class BayesNet:
         """
         Topological sorting of nodes in the BN using Kahns algorithm. It also detects loops in the BN
         """
-        roots = self.get_orphans()
+        cycle = False
+        roots = self.get_roots()
         sorting = []
         while roots:
             node = roots.pop(0)
@@ -180,6 +284,7 @@ class BayesNet:
                     
         if len(sorting) < self.get_num_nodes():
             warnings.warn('Cycle detected!')
+            cycle = True
             
-        return sorting
+        return sorting, cycle
         
