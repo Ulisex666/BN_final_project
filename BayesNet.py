@@ -1,7 +1,11 @@
 import warnings
 import numpy as np
 import pandas as pd
+from itertools import combinations
 
+"""
+Defining classes to be used in learning a Bayesian Network from data.
+"""
 class Node:
     '''
     Class defining the nodes that form the Bayesian Network. 
@@ -17,17 +21,20 @@ class Node:
         """
         self.var_name = var_name
         self.node = {'Parents':[], 'Children':[], 'CPT':None}
+        self.parents = []
+        self.children = []
+        self.CPT = None
         
         if parents is not None:
             for parent in parents:
-                self.node['Parents'].append(parent)
+                self.parents.append(parent)
                 
         if children is not None:
             for child in children:
-                self.node['Children'].append(child)
+                self.children.append(child)
                 
-        self.num_parents = len(self.node['Parents'])
-        self.num_children = len(self.node['Children'])
+        self.num_parents = len(self.parents)
+        self.num_children = len(self.children)
         
     def add_parent(self, parent_name:str): 
         """
@@ -35,7 +42,7 @@ class Node:
         Inputs: Name of parent as a string
         Return: None
         """
-        self.node['Parents'].append(parent_name)
+        self.parents.append(parent_name)
         self._update_num_parents()
         return None
         
@@ -45,7 +52,7 @@ class Node:
         Inputs: Name of child as a string
         Return: None
         """
-        self.node['Children'].append(child_name)
+        self.children.append(child_name)
         self._update_num_children()
         
     def del_child(self, child_name:str):
@@ -54,9 +61,9 @@ class Node:
         Inputs: Child to be killed name.
         Returns: None
         """
-        if not child_name in self.node['Children']:
+        if not child_name in self.children:
             raise KeyError(f'{child_name} not in children')
-        self.node['Children'].remove(child_name)
+        self.children.remove(child_name)
         
     def del_parent(self, parent_name:str):
         """
@@ -64,33 +71,33 @@ class Node:
         Inputs: Parent to be killed.
         Returns: None
         """
-        if not parent_name in self.node['Parents']:
+        if not parent_name in self.parents:
             raise KeyError(f'{parent_name} not in parents')
-        self.node['Parents'].remove(parent_name)
+        self.parents.remove(parent_name)
         
     def get_parents(self) -> list:
         """
         Returns name of parents of node as a list
         """
-        return self.node['Parents']
+        return self.parents
     
     def _update_num_parents(self):
         """
         Update the property number of parents of node
         """
-        self.num_parents = len(self.node['Parents'])
+        self.num_parents = len(self.parents)
     
     def get_children(self) -> list:
         """
         Returns name of children of node as a list
         """
-        return self.node['Children']
+        return self.children
     
     def _update_num_children(self):
         """
         Update property number of children of node
         """
-        self.num_children = len(self.node['Children'])
+        self.num_children = len(self.children)
     
 class CPT:
     def __init__(self) -> None:
