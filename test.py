@@ -1,4 +1,4 @@
-from BayesNet import BayesNet
+from BayesNet import *
 from utils import get_mutual_info
 import numpy as np
 import pandas as pd
@@ -22,7 +22,7 @@ data = {
     }
 
 df = pd.DataFrame(data)
+bn = BayesNet('ChowLiu')
 
-
-
-print(get_mutual_info(df, 'x1', 'x2'))
+bn = chow_liu(df, bn)
+print(f'Edges: {bn.get_edges()}')

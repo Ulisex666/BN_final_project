@@ -32,3 +32,4 @@ def get_mutual_info(df: pd.DataFrame, var1:str, var2:str) -> float:
         mutual_info += pxy * np.log2(pxy / (px*py))
         
     return mutual_info
+
