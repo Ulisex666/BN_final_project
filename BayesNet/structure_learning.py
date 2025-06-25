@@ -58,7 +58,7 @@ def chow_liu(df: pd.DataFrame, bn_name: str, root:str = ''):
             
     # Choose root
     if not root:
-        root = vars_names[0] # Select first variable as default
+        root = mi_edges[0][0] # Select edge with biggest MI as default
     elif root not in vars_names:
         raise ValueError(f"Root node '{root}' not in df variables!")
     
