@@ -1,7 +1,7 @@
 import warnings
 import numpy as np
 import pandas as pd
-from itertools import combinations
+from itertools import product
 from BayesNet.utils import *
 
 """
@@ -50,7 +50,7 @@ class Node:
     
     def add_var_val(self, var_val):
         """
-        Adds specified value to node, as a string.
+        Adds specified value to list of values taken by node, as a string.
         """
         if var_val is not str:
             str_val = str(var_val)
@@ -113,12 +113,46 @@ class Node:
         return self.var_values
     
 class CPT:
-    # TODO: Definir clase CPT. Para ello, necesito que cada para cada variable se tenga en cuenta el número de posibles
-    # valores que puede tomar de acuerdo al valor que toma su padre, y realizar el conteo correspondiente. 
-    # Copiar la estructura de la definida en Weka.
-    def __init__(self) -> None:
-        pass
-    pass
+    def __init__(self, var_name: str, var_values: list[str], 
+                 parent_values_dict: dict[str, list[str]]):
+        """
+        child_name: nombre del nodo hijo (string)
+        child_values: lista de valores posibles del hijo
+        parent_values_dict: dict con nombre de padre -> lista de valores posibles
+        """
+        self.var = var_name
+        self.var_values = var_values
+        self.parents = list(parent_values_dict.keys())
+        self.parent_values_dict = parent_values_dict
+        
+        self.table = self._build_empty_table()
+    
+    def _build_empty_table(self):
+        """
+        Crea una tabla condensada (pivoteada) con:
+        - Una fila por combinación de padres
+        - Una columna por cada valor del hijo
+        - Inicializa cada probabilidad con un valor uniforme
+        """
+        parent_combinations = list(product(*[self.parent_values_dict[p] for p in self.parents]))
+        default_prob = 1 / len(self.var_values)
+
+        # Crear estructura por filas
+        rows = []
+        for parent_vals in parent_combinations:
+            row = dict(zip(self.parents, parent_vals))
+            for val in self.var_values:
+                row[f'P({self.var}={val})'] = default_prob # type: ignore
+            rows.append(row)
+        
+        return pd.DataFrame(rows)
+    
+    def to_dataframe(self):
+        return self.table
+    
+    
+    def __str__(self):
+        return self.table.to_string(index=False)
 
 
 class BayesNet:
@@ -137,6 +171,7 @@ class BayesNet:
         """
         self.BN_name = name
         self.graph = {'Nodes':nodes, 'Edges':edges}
+        self.CPTs = {}
         
     def add_node(self, var_name:str):
         """
@@ -240,8 +275,11 @@ class BayesNet:
         for value in var_values:
             self.graph['Nodes'][var_name].add_var_val(value)
             
-    def get_var_values(self, var_name:str) -> list[str]:
-        return self.graph['Nodes'][var_name].get_var_values()
+    def get_vars_values(self, vars_name:list[str]) -> dict:
+        values = {var:None for var in vars_name}
+        for var in vars_name:
+            values[var] = self.graph['Nodes'][var].get_var_values()
+        return values
         
     def get_nodes(self) -> list[str]:
         """
@@ -349,5 +387,20 @@ class BayesNet:
         if filename:
             dot.render(filename, view=True)
         return dot
+    
+    def add_CPT(self, var_name:str):
+        var_values = self.graph['Nodes'][var_name].get_var_values()
+        parent_names = self.get_parents(var_name)
+        parent_values = self.get_vars_values(parent_names)
+        
+        cpt = CPT(var_name, var_values, parent_values)
+        self.CPTs[var_name] = cpt
+        return None
+    
+    def add_all_CPTs(self):
+        for var in self.graph['Nodes'].keys():
+            self.add_CPT(var)
+        
+    def get_CPT(self, var_name:str) -> CPT:
+        return self.CPTs[var_name]
             
-

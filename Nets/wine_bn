@@ -1,0 +1,29 @@
+digraph Wine {
+	Alcohol
+	Malicacid
+	Ash
+	Alcalinity_of_ash
+	Magnesium
+	Total_phenols
+	Flavanoids
+	Nonflavanoid_phenols
+	Proanthocyanins
+	Color_intensity
+	Hue
+	X0D280_0D315_of_diluted_wines
+	Proline
+	class
+	Flavanoids -> class
+	Flavanoids -> Total_phenols
+	Flavanoids -> Proanthocyanins
+	Flavanoids -> Nonflavanoid_phenols
+	class -> Color_intensity
+	class -> Proline
+	class -> X0D280_0D315_of_diluted_wines
+	class -> Alcohol
+	class -> Hue
+	class -> Malicacid
+	class -> Magnesium
+	class -> Alcalinity_of_ash
+	class -> Ash
+}
