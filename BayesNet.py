@@ -282,15 +282,23 @@ class BayesNet:
         cycle = False
         roots = self.get_roots()
         sorting = []
+        
+        # Save number of parents as a dictionary, where the key is the node and the value is its number of parents
+        parent_num = {node:self.get_num_parents(node)
+                      for node in self.graph['Nodes'].keys()}
+        
         while roots:
             node = roots.pop(0)
             sorting.append(node)
             
             for child in self.get_children(node):
-                if self.get_num_parents(child) - 1 == 0:
+                # If a child has no parents after deleting the current node, add it to roots
+                if parent_num[child] - 1 == 0:
                     roots.append(child) 
+                # Otherwise delete one of its number of parents
+                else:
+                    parent_num[child] -= 1
                     
-        # TODO: Bug al detectar ciclos con 3 nodos
         if len(sorting) < self.get_num_nodes():
             warnings.warn('Cycle detected!')
             cycle = True
@@ -318,7 +326,7 @@ class BayesNet:
         return dot
             
         
-def chow_liu(df: pd.DataFrame, bn: BayesNet):
+def chow_liu(df: pd.DataFrame, bn_name: str):
     vars_names = df.columns.to_list()
     mi_edges = []
     
@@ -354,6 +362,9 @@ def chow_liu(df: pd.DataFrame, bn: BayesNet):
             return True
         return False
     
+    # Create BN to be filled with nodes and edges
+    bn = BayesNet(bn_name) 
+       
     # Create nodes
     for var in vars_names:
         bn.add_node(var)
@@ -361,7 +372,7 @@ def chow_liu(df: pd.DataFrame, bn: BayesNet):
     # Add edges to create Maximun Spanning Tree 
     for u, v, _ in mi_edges:
         if union(u, v):
-            # The order of the edge doesnt matter for this kind of tree
+            # The direction of the edge doesnt matter for this kind of tree
             bn.add_edge((u,v))
             
     return bn

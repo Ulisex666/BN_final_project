@@ -1,0 +1,12 @@
+digraph Prueba {
+	A
+	B
+	C
+	D
+	E
+	A -> B
+	C -> B
+	D -> B
+	B -> E
+	E -> A
+}
