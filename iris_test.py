@@ -12,5 +12,5 @@ df.columns = [col.replace(' (cm)', '').replace(' ', '_') for col in df.columns]
 df_discrete = discretize_kbins(df, 'uniform')
 
 
-bn = chow_liu(df_discrete, 'IrisBayesNet', root='target')
-bn.to_graphviz("IrisBayesNet")
+bn = chow_liu(df_discrete, 'IrisBayesNet')
+bn.to_graphviz("Nets/IrisBayesNet")
