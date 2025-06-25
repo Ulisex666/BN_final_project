@@ -21,7 +21,6 @@ class Node:
         define parents and children.
         """
         self.var_name = var_name
-        self.node = {'Parents':[], 'Children':[], 'CPT':None}
         self.parents = []
         self.children = []
         self.CPT = None
