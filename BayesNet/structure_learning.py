@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as pd
 from itertools import combinations
 from collections import deque
-from utils import *
-from BayesNet import *
+from BayesNet.utils import *
+from BayesNet.BayesNet import *
      
 def chow_liu(df: pd.DataFrame, bn_name: str, root:str = ''):
     """

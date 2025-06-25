@@ -2,7 +2,7 @@ import warnings
 import numpy as np
 import pandas as pd
 from itertools import combinations
-from utils import *
+from BayesNet.utils import *
 
 """
 Defining classes to be used in learning a Bayesian Network from data.

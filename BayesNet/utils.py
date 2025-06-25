@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import KBinsDiscretizer
 
 def get_mutual_info(df: pd.DataFrame, var1:str, var2:str) -> float:
     """
@@ -33,3 +34,18 @@ def get_mutual_info(df: pd.DataFrame, var1:str, var2:str) -> float:
         
     return mutual_info
 
+def discretize_kbins(df: pd.DataFrame, strategy, bins:int=3):
+    """
+    Function for discretizing dataframes, for its use in the structure learning algorithms
+    Inputs: Dataframe as df, number of bins as bins and strategy for discretizacion:
+    'uniform', 'kmeans' or 'quantile'
+    
+    Returns: Processed dataframe as df_discrete
+    """
+    df_discrete = df.copy()
+    numeric_cols = df.select_dtypes(include='number').columns
+    kb = KBinsDiscretizer(n_bins=bins, encode='ordinal', strategy=strategy)
+    df_discrete[numeric_cols] = kb.fit_transform(df[numeric_cols])
+    
+    return df_discrete
+    

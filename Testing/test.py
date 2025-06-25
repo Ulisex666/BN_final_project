@@ -1,5 +1,5 @@
-from BayesNet import *
-from structure_learning import *
+from BayesNet.BayesNet import *
+from BayesNet.structure_learning import *
 import numpy as np
 import pandas as pd
 
@@ -40,7 +40,7 @@ data_cooper = {
 
 
 df = pd.DataFrame(data_cooper)
-bn = chow_liu(df, 'Chow Liu', 'x1')
+bn = chow_liu(df, 'Chow Liu')
 print(bn.to_graphviz('test_cooper'))
 
 

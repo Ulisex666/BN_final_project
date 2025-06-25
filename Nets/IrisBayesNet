@@ -1,0 +1,11 @@
+digraph IrisBayesNet {
+	sepal_length
+	sepal_width
+	petal_length
+	petal_width
+	target
+	target -> petal_width
+	target -> petal_length
+	petal_width -> sepal_width
+	petal_length -> sepal_length
+}
