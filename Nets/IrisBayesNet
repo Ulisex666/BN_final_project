@@ -4,8 +4,8 @@ digraph IrisBayesNet {
 	petal_length
 	petal_width
 	target
-	petal_width -> target
-	petal_width -> sepal_width
+	target -> petal_width
 	target -> petal_length
+	petal_width -> sepal_width
 	petal_length -> sepal_length
 }

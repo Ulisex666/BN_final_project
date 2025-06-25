@@ -15,24 +15,15 @@ class Node:
     Can specify multiple parents and children.
     TODO: Define and add CPT
     '''
-    def __init__(self, var_name:str, parents:list[str] = [], children:list[str] = []):
+    def __init__(self, var_name:str, var_values:list[str] = [], parents:list[str] = [], children:list[str] = []):
         """
-        Initially the node doesnt have either parents or children. TODO: Add capability to
-        define parents and children.
+        Initialize node. By default, it's variable doesn't have any set values, and the node doesn't have
+        any parents or children. They can be added as a list of strings, or numeric values for the variable values
         """
         self.var_name = var_name
-        self.parents = []
-        self.children = []
-        self.CPT = None
-        
-        if parents is not None:
-            for parent in parents:
-                self.parents.append(parent)
-                
-        if children is not None:
-            for child in children:
-                self.children.append(child)
-                
+        self.var_values = [str(value) for value in var_values] 
+        self.parents = [parent for parent in parents]
+        self.children = [child for child in children]
         self.num_parents = len(self.parents)
         self.num_children = len(self.children)
         
@@ -46,6 +37,7 @@ class Node:
         self._update_num_parents()
         return None
         
+        
     def add_child(self, child_name:str): 
         """
         Add child to node.
@@ -54,6 +46,17 @@ class Node:
         """
         self.children.append(child_name)
         self._update_num_children()
+        return None
+    
+    def add_var_val(self, var_val):
+        """
+        Adds specified value to node, as a string.
+        """
+        if var_val is not str:
+            str_val = str(var_val)
+            self.var_values.append(str_val)
+        else:
+            self.var_values.append(var_val) # type: ignore
         
     def del_child(self, child_name:str):
         """
@@ -64,6 +67,7 @@ class Node:
         if not child_name in self.children:
             raise KeyError(f'{child_name} not in children')
         self.children.remove(child_name)
+        return None
         
     def del_parent(self, parent_name:str):
         """
@@ -74,8 +78,9 @@ class Node:
         if not parent_name in self.parents:
             raise KeyError(f'{parent_name} not in parents')
         self.parents.remove(parent_name)
+        return None
         
-    def get_parents(self) -> list:
+    def get_parents(self) -> list[str]:
         """
         Returns name of parents of node as a list
         """
@@ -86,8 +91,9 @@ class Node:
         Update the property number of parents of node
         """
         self.num_parents = len(self.parents)
+        return None
     
-    def get_children(self) -> list:
+    def get_children(self) -> list[str]:
         """
         Returns name of children of node as a list
         """
@@ -98,8 +104,18 @@ class Node:
         Update property number of children of node
         """
         self.num_children = len(self.children)
+        return None
+        
+    def get_var_values(self) -> list:
+        """
+        Get the values the variable can take as a list
+        """
+        return self.var_values
     
 class CPT:
+    # TODO: Definir clase CPT. Para ello, necesito que cada para cada variable se tenga en cuenta el número de posibles
+    # valores que puede tomar de acuerdo al valor que toma su padre, y realizar el conteo correspondiente. 
+    # Copiar la estructura de la definida en Weka.
     def __init__(self) -> None:
         pass
     pass
@@ -128,6 +144,7 @@ class BayesNet:
         """
         new_node:Node = Node(var_name)
         self.graph['Nodes'][var_name] = new_node
+        return None
 
     def add_edge(self, edge:tuple[str, str]):
         """
@@ -153,6 +170,7 @@ class BayesNet:
         self.graph['Edges'].append((parent_node, child_node))
         self.graph['Nodes'][parent_node].add_child(child_node)
         self.graph['Nodes'][child_node].add_parent(parent_node)
+        return None
         
     def del_edge(self, edge:tuple[str, str]):
         """
@@ -181,6 +199,7 @@ class BayesNet:
         
         self.graph['Nodes'][parent_node].del_child(child_node)
         self.graph['Nodes'][child_node].del_parent(parent_node)
+        return None
         
     def reverse_edge(self, edge:tuple[str, str]):
         """
@@ -215,9 +234,16 @@ class BayesNet:
         self.graph['Edges'].append((new_parent_node, new_child_node))
         self.graph['Nodes'][new_parent_node].add_child(new_child_node)
         self.graph['Nodes'][new_child_node].add_parent(new_parent_node)
+        return None
+    
+    def add_var_values(self, var_name:str, var_values:list):
+        for value in var_values:
+            self.graph['Nodes'][var_name].add_var_val(value)
+            
+    def get_var_values(self, var_name:str) -> list[str]:
+        return self.graph['Nodes'][var_name].get_var_values()
         
-        
-    def get_nodes(self) -> list:
+    def get_nodes(self) -> list[str]:
         """
         Returns the nodes present in the net, without any kind of ordering.
         """
@@ -229,13 +255,13 @@ class BayesNet:
         """
         return len(self.get_nodes())
     
-    def get_edges(self) -> list:
+    def get_edges(self) -> list[tuple]:
         """
         Returns the edges present in the BN as a list of tuples.
         """
         return self.graph['Edges']
     
-    def get_roots(self) -> list:
+    def get_roots(self) -> list[str]:
         """
         Finds all nodes without parents in the BN, and returns their names as a list.
         """
@@ -250,7 +276,7 @@ class BayesNet:
         return edge in self.graph['Edges']
     
     
-    def get_children(self, node:str) -> list:
+    def get_children(self, node:str) -> list[str]:
         """
         Finds all children of the specified nodel. Returns a list containing their names.
         """
@@ -262,7 +288,7 @@ class BayesNet:
         """
         return self.graph['Nodes'][node].num_children
     
-    def get_parents(self, node:str) -> list:
+    def get_parents(self, node:str) -> list[str]:
         """
         Returns the parents of the specified node as a list, containing the names as strings
         """
@@ -274,7 +300,7 @@ class BayesNet:
         """
         return self.graph['Nodes'][node].num_parents
     
-    def top_sort(self):
+    def top_sort(self) -> list[str]:
         """
         Topological sorting of nodes in the BN using Kahns algorithm. It also detects loops in the BN
         """
