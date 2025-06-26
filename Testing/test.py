@@ -41,7 +41,7 @@ data_cooper = {
 
 df = pd.DataFrame(data_cooper)
 bn = chow_liu(df, 'Chow Liu')
-print(bn.to_graphviz('test_cooper'))
+print(bn.show_graphviz('test_cooper'))
 
 
 

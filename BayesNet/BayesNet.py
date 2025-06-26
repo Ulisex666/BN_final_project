@@ -3,9 +3,6 @@ import pandas as pd
 from itertools import product
 from BayesNet.utils import *
 
-#TODO: Get all comments in english
-#TODO: Separar visualización de red de obtener su formato dot
-
 """
 Defining classes to be used in learning a Bayesian Network from data.
 """
@@ -15,7 +12,6 @@ class Node:
     Name and number of parents and children as attributes.
     Attribute node contains the names of parents and children of current node.
     Can specify multiple parents and children.
-    TODO: Define and add CPT
     '''
     def __init__(self, var_name:str, var_values:list[str] = [], parents:list[str] = [], children:list[str] = []):
         """
@@ -118,9 +114,8 @@ class CPT:
     def __init__(self, var_name: str, var_values: list[str], 
                  parent_values_dict: dict[str, list[str]]):
         """
-        child_name: nombre del nodo hijo (string)
-        child_values: lista de valores posibles del hijo
-        parent_values_dict: dict con nombre de padre -> lista de valores posibles
+        Creates a CPT for a given variable. It know what values the variable can take,
+        its parents and the values the parents can take
         """
         self.var = var_name
         self.var_values = var_values
@@ -131,15 +126,13 @@ class CPT:
     
     def _build_empty_table(self):
         """
-        Crea una tabla condensada (pivoteada) con:
-        - Una fila por combinación de padres
-        - Una columna por cada valor del hijo
-        - Inicializa cada probabilidad con un valor uniforme
+        Create an empty CPT for the variable, where all default values are None
         """
         parent_combinations = list(product(*[self.parent_values_dict[p] for p in self.parents]))
         default_prob = None
 
-        # Crear estructura por filas
+        # Dataframe, where every row is a combination of the values the parents can take,
+        # and the probability the variable will take a certain value given its parents values
         rows = []
         for parent_vals in parent_combinations:
             row = dict(zip(self.parents, parent_vals))
@@ -150,61 +143,66 @@ class CPT:
         return pd.DataFrame(rows)
     
     def to_dataframe(self):
+        """
+        Return CPT as a dataframe
+        """
         return self.table
     
-    # TODO: Comprobar lo que hizo ChatGPT Crear Función que imprima todas las CPT automáticamente
     def update_from_data(self, df: pd.DataFrame):
         """
-        Actualiza in-place las probabilidades de la CPT usando los datos observados en df.
-        - Si el nodo no tiene padres, calcula P(var).
-        - Si tiene padres, calcula P(var | parents).
-        - Usa 0.0 para combinaciones no observadas.
-        - Asegura que todos los valores sean tratados como string para coincidencia confiable.
+        Update CPT based on observations in DB. Assumes a discretized Db without missing values.
+        Values without observations get assigned 0.
         """
         parent_cols = self.parents
         child_col = self.var
+        # Values are converted to strings to avoid type problems
         child_vals = [str(v) for v in self.var_values]
 
-        # Forzar a string para evitar errores de coincidencia
+        # Vaues in DB are converted to string for child and parents
         df_str = df.copy()
         df_str[child_col] = df_str[child_col].astype(str)
         for p in parent_cols:
             df_str[p] = df_str[p].astype(str)
 
+        # Case for when variable doesn't have parents, root node
         if not parent_cols:
-            # Nodo raíz: P(var)
-            total = len(df_str)
+            # Count of how many time the variable has taken a certain value
             counts = df_str[child_col].value_counts(normalize=True)
 
+            # Divides every count over the total number of observations, and returns it as a prob ability
             for i, row in self.table.iterrows():
                 for val in child_vals:
                     col = f'P({child_col}={val})'
                     self.table.at[i, col] = counts.get(val, 0.0)
             return
 
-        # Con padres: P(var | parents)
+        # When variable has parents: P(var | parents)
+        
+        # Count of how many times the variable takes a certain value for a given parent combination
         counts = (
             df_str.groupby(parent_cols + [child_col])
             .size()
             .reset_index(name='count')
         )
 
+        # Count of how many times the parents have taken a certain value combination
         totals = (
             df_str.groupby(parent_cols)
             .size()
             .reset_index(name='total')
         )
 
+        # Merge the two dataframes and calculate probabilities
         merged = pd.merge(counts, totals, on=parent_cols)
         merged['P'] = merged['count'] / merged['total']
 
-        # Crear diccionario (parent_combo, child_val) -> P
+        # Create lookup dictionary for probabilities (parent_combo, child_val) -> P
         prob_lookup = {
             (tuple(row[p] for p in parent_cols), row[child_col]): row['P']
             for _, row in merged.iterrows()
         }
 
-        # Actualizar CPT existente
+        # Populate CPT from lookup probablities table
         for i, row in self.table.iterrows():
             parent_key = tuple(str(row[p]) for p in parent_cols)
             for val in child_vals:
@@ -217,7 +215,9 @@ class CPT:
     def __str__(self):
         var = self.var
         parents = self.parents
-        return f'Var {var} with parents {parents}' + '\n' +self.table.to_string(index=False)
+        sep = '-'*40
+        return (sep + '\n' + f'Variable "{var}" with parents ' + f'"{','.join(str(p) for p in parents)}"'
+                + '\n' + sep +  '\n'  + self.table.to_string(index=False))
 
 
 class BayesNet:
@@ -337,10 +337,17 @@ class BayesNet:
         return None
     
     def add_var_values(self, var_name:str, var_values:list):
+        """
+        Adds all possible values a node can take, take from a list
+        """
         for value in var_values:
             self.graph['Nodes'][var_name].add_var_val(value)
             
     def get_vars_values(self, vars_name:list[str]) -> dict:
+        """
+        Gets all values a variable or a list of variables can take, as a dictionary
+        where the key is the variable and the value is a list of the values it can take
+        """
         values = {var:None for var in vars_name}
         for var in vars_name:
             values[var] = self.graph['Nodes'][var].get_var_values()
@@ -433,7 +440,10 @@ class BayesNet:
             
         return sorting
     
-    def to_graphviz(self, filename=None):
+    def show_graphviz(self, filename:str):
+        """
+        Prints current BayesNet to a .png image file
+        """
         try:
             import graphviz
         except ImportError:
@@ -449,17 +459,44 @@ class BayesNet:
             child = edge[1]
             dot.edge(parent, child)
             
-        if filename:
-            dot.render(filename, view=True)
+        dot.render(filename, view=True)
+        return 
+    
+    def to_dot(self, filename:str):
+        """
+        Saves current BayesNet to a .dot file
+        """
+        try:
+            import graphviz
+        except ImportError:
+            raise ImportError("'graphviz' library and software required")
+        
+        dot = graphviz.Digraph(name=self.BN_name, format='dot')
+
+        for node in self.get_nodes():
+            dot.node(node)
+            
+        for edge in self.get_edges():
+            parent, child = edge[0], edge[1]
+            dot.edge(parent, child)
+            
+        dot.save(filename)
         return dot
     
     def add_var_vals_from_df(self, df:pd.DataFrame):
+        """
+        Adds all possible values a variable can take from a given DataFrame
+        """
         vars = df.columns.to_list()
         for var in vars:
             vals_list = list(df[var].unique())
             self.add_var_values(var, vals_list)
             
     def add_CPT(self, var_name:str):
+        """
+        Creates empty CPT for specified values. It assumes that the variable has been assigned
+        a set of (finite) possible values it can take
+        """
         var_values = self.graph['Nodes'][var_name].get_var_values()
         if not var_values:
             raise IndexError(f'Variable {var_name} has no set values!')
@@ -472,6 +509,9 @@ class BayesNet:
         return None
     
     def add_all_CPTs(self):
+        """
+        Adds empty CPTs for all nodes present in the BN
+        """
         for var in self.graph['Nodes'].keys():
             self.add_CPT(var)
         
@@ -480,8 +520,7 @@ class BayesNet:
     
     def learn_CPTs_from_data(self, df: pd.DataFrame):
         """
-        Aprende las probabilidades condicionales desde un DataFrame,
-        actualizando directamente cada CPT existente en la red.
+        Learn all CPTs in the net from the data given in a DataFrame
         """
         for var_name, cpt in self.CPTs.items():
             cpt.update_from_data(df)

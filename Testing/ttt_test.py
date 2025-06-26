@@ -21,4 +21,4 @@ for var in bn.top_sort():
     print('-'*20)
     print(bn.get_CPT(var))
     print('-'*20)
-bn.to_graphviz('Nets/TicTacToe')
+bn.show_graphviz('Nets/TicTacToe')
