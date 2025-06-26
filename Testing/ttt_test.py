@@ -3,7 +3,7 @@ import sys
 
 # Agrega la carpeta raíz del proyecto al path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from BayesNet.structure_learning import chow_liu
+from BayesNet.net_learning import chow_liu
 from BayesNet.BayesNet import *
 import pandas as pd
 
@@ -16,6 +16,9 @@ columns = [
 ]
 
 df = pd.read_csv(url, names=columns)
-df_vars = df.drop(columns=['class'])  # solo variables del tablero
-bn = chow_liu(df_vars, bn_name='TicTacToe')
+bn = chow_liu(df, bn_name='TicTacToe')
+for var in bn.top_sort():
+    print('-'*20)
+    print(bn.get_CPT(var))
+    print('-'*20)
 bn.to_graphviz('Nets/TicTacToe')

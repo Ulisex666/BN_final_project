@@ -1,8 +1,10 @@
 import warnings
-import numpy as np
 import pandas as pd
 from itertools import product
 from BayesNet.utils import *
+
+#TODO: Get all comments in english
+#TODO: Separar visualización de red de obtener su formato dot
 
 """
 Defining classes to be used in learning a Bayesian Network from data.
@@ -135,7 +137,7 @@ class CPT:
         - Inicializa cada probabilidad con un valor uniforme
         """
         parent_combinations = list(product(*[self.parent_values_dict[p] for p in self.parents]))
-        default_prob = 1 / len(self.var_values)
+        default_prob = None
 
         # Crear estructura por filas
         rows = []
@@ -150,9 +152,72 @@ class CPT:
     def to_dataframe(self):
         return self.table
     
+    # TODO: Comprobar lo que hizo ChatGPT Crear Función que imprima todas las CPT automáticamente
+    def update_from_data(self, df: pd.DataFrame):
+        """
+        Actualiza in-place las probabilidades de la CPT usando los datos observados en df.
+        - Si el nodo no tiene padres, calcula P(var).
+        - Si tiene padres, calcula P(var | parents).
+        - Usa 0.0 para combinaciones no observadas.
+        - Asegura que todos los valores sean tratados como string para coincidencia confiable.
+        """
+        parent_cols = self.parents
+        child_col = self.var
+        child_vals = [str(v) for v in self.var_values]
+
+        # Forzar a string para evitar errores de coincidencia
+        df_str = df.copy()
+        df_str[child_col] = df_str[child_col].astype(str)
+        for p in parent_cols:
+            df_str[p] = df_str[p].astype(str)
+
+        if not parent_cols:
+            # Nodo raíz: P(var)
+            total = len(df_str)
+            counts = df_str[child_col].value_counts(normalize=True)
+
+            for i, row in self.table.iterrows():
+                for val in child_vals:
+                    col = f'P({child_col}={val})'
+                    self.table.at[i, col] = counts.get(val, 0.0)
+            return
+
+        # Con padres: P(var | parents)
+        counts = (
+            df_str.groupby(parent_cols + [child_col])
+            .size()
+            .reset_index(name='count')
+        )
+
+        totals = (
+            df_str.groupby(parent_cols)
+            .size()
+            .reset_index(name='total')
+        )
+
+        merged = pd.merge(counts, totals, on=parent_cols)
+        merged['P'] = merged['count'] / merged['total']
+
+        # Crear diccionario (parent_combo, child_val) -> P
+        prob_lookup = {
+            (tuple(row[p] for p in parent_cols), row[child_col]): row['P']
+            for _, row in merged.iterrows()
+        }
+
+        # Actualizar CPT existente
+        for i, row in self.table.iterrows():
+            parent_key = tuple(str(row[p]) for p in parent_cols)
+            for val in child_vals:
+                col = f'P({child_col}={val})'
+                prob = prob_lookup.get((parent_key, val), 0.0)
+                self.table.at[i, col] = prob
+
+    
     
     def __str__(self):
-        return self.table.to_string(index=False)
+        var = self.var
+        parents = self.parents
+        return f'Var {var} with parents {parents}' + '\n' +self.table.to_string(index=False)
 
 
 class BayesNet:
@@ -388,8 +453,17 @@ class BayesNet:
             dot.render(filename, view=True)
         return dot
     
+    def add_var_vals_from_df(self, df:pd.DataFrame):
+        vars = df.columns.to_list()
+        for var in vars:
+            vals_list = list(df[var].unique())
+            self.add_var_values(var, vals_list)
+            
     def add_CPT(self, var_name:str):
         var_values = self.graph['Nodes'][var_name].get_var_values()
+        if not var_values:
+            raise IndexError(f'Variable {var_name} has no set values!')
+        
         parent_names = self.get_parents(var_name)
         parent_values = self.get_vars_values(parent_names)
         
@@ -403,4 +477,12 @@ class BayesNet:
         
     def get_CPT(self, var_name:str) -> CPT:
         return self.CPTs[var_name]
-            
+    
+    def learn_CPTs_from_data(self, df: pd.DataFrame):
+        """
+        Aprende las probabilidades condicionales desde un DataFrame,
+        actualizando directamente cada CPT existente en la red.
+        """
+        for var_name, cpt in self.CPTs.items():
+            cpt.update_from_data(df)
+                

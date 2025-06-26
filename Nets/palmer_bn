@@ -1,17 +1,11 @@
 digraph Palmer {
-	species
-	island
 	bill_length_mm
 	bill_depth_mm
 	flipper_length_mm
 	body_mass_g
-	sex
-	year
-	species -> flipper_length_mm
+	species
+	flipper_length_mm -> species
 	species -> bill_length_mm
-	species -> island
 	species -> bill_depth_mm
 	species -> body_mass_g
-	flipper_length_mm -> year
-	body_mass_g -> sex
 }

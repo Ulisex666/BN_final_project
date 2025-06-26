@@ -8,9 +8,11 @@ digraph TicTacToe {
 	"bottom-left"
 	"bottom-middle"
 	"bottom-right"
+	class
+	"middle-middle" -> class
+	class -> "top-left"
 	"top-left" -> "middle-right"
 	"top-left" -> "bottom-middle"
-	"top-left" -> "middle-middle"
 	"bottom-middle" -> "top-right"
 	"top-right" -> "middle-left"
 	"middle-left" -> "bottom-right"

@@ -86,5 +86,15 @@ def chow_liu(df: pd.DataFrame, bn_name: str, root:str = ''):
     # Add edges to create Maximun Spanning Tree, starting from root 
     for edge in directed_edges:
         bn.add_edge(edge)
-            
+        
+    # Populate net with CPT with default values, so the parameters can be learned from DB
+    bn.add_var_vals_from_df(df)
+    bn.add_all_CPTs()            
     return bn
+
+def learn_parameters(df: pd.DataFrame, bn: BayesNet):
+    net_vars = bn.get_nodes()
+    df_vars = df.columns.to_list()
+    
+    if set(net_vars) == set(df_vars):
+        return True

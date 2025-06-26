@@ -1,5 +1,5 @@
 from BayesNet.BayesNet import *
-from BayesNet.structure_learning import *
+from BayesNet.net_learning import *
 import numpy as np
 import pandas as pd
 
