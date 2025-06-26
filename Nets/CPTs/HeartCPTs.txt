@@ -1,0 +1,90 @@
+----------------------------------------
+Variable "oldpeak" with parents ""
+----------------------------------------
+P(oldpeak=(0.85,6.2]) P(oldpeak=[0,0.85])
+             0.468013            0.531987
+----------------------------------------
+Variable "slope" with parents "oldpeak"
+----------------------------------------
+   oldpeak P(slope=Descendente) P(slope=Plana) P(slope=Ascendente)
+(0.85,6.2]             0.129496       0.683453             0.18705
+  [0,0.85]             0.018987       0.265823             0.71519
+----------------------------------------
+Variable "thalach" with parents "slope"
+----------------------------------------
+      slope P(thalach=(148,202]) P(thalach=[71,148])
+Descendente              0.47619             0.52381
+      Plana             0.364964            0.635036
+ Ascendente              0.81295             0.18705
+----------------------------------------
+Variable "restecg" with parents "slope"
+----------------------------------------
+      slope P(restecg=Ventricular) P(restecg=Normal) P(restecg=Anormalidad)
+Descendente               0.571429          0.380952               0.047619
+      Plana               0.547445          0.430657               0.021898
+ Ascendente                0.42446           0.57554                    0.0
+----------------------------------------
+Variable "class" with parents "thalach"
+----------------------------------------
+  thalach P(class=Sano) P(class=Enfermo)
+(148,202]      0.716763         0.283237
+ [71,148]      0.290323         0.709677
+----------------------------------------
+Variable "thal" with parents "class"
+----------------------------------------
+  class P(thal=DefectoFijo) P(thal=Normal) P(thal=DefectoReversible)
+   Sano              0.0375        0.79375                   0.16875
+Enfermo            0.087591       0.270073                  0.642336
+----------------------------------------
+Variable "cp" with parents "class"
+----------------------------------------
+  class P(cp=Angina) P(cp=Asintomatico) P(cp=NoAnginal) P(cp=Atipico)
+   Sano          0.1            0.24375         0.40625          0.25
+Enfermo     0.051095           0.751825        0.131387      0.065693
+----------------------------------------
+Variable "ca" with parents "class"
+----------------------------------------
+  class P(ca=[0,0.5]) P(ca=(0.5,3])
+   Sano       0.80625       0.19375
+Enfermo      0.328467      0.671533
+----------------------------------------
+Variable "chol" with parents "class"
+----------------------------------------
+  class P(chol=[126,274]) P(chol=(274,564])
+   Sano           0.79375           0.20625
+Enfermo          0.656934          0.343066
+----------------------------------------
+Variable "sex" with parents "thal"
+----------------------------------------
+             thal P(sex=Hombre) P(sex=Mujer)
+      DefectoFijo      0.944444     0.055556
+           Normal      0.512195     0.487805
+DefectoReversible      0.869565     0.130435
+----------------------------------------
+Variable "exang" with parents "cp"
+----------------------------------------
+          cp P(exang=Noinducido) P(exang=Inducido)
+      Angina            0.826087          0.173913
+Asintomatico            0.450704          0.549296
+   NoAnginal             0.86747           0.13253
+     Atipico            0.918367          0.081633
+----------------------------------------
+Variable "fbs" with parents "cp"
+----------------------------------------
+          cp P(fbs=mas120) P(fbs=menos120)
+      Angina      0.217391        0.782609
+Asintomatico      0.112676        0.887324
+   NoAnginal      0.204819        0.795181
+     Atipico      0.102041        0.897959
+----------------------------------------
+Variable "age" with parents "ca"
+----------------------------------------
+     ca P(age=(54.5,77]) P(age=[29,54.5])
+[0,0.5]         0.402299         0.597701
+(0.5,3]         0.723577         0.276423
+----------------------------------------
+Variable "trestbps" with parents "age"
+----------------------------------------
+      age P(trestbps=(143,200]) P(trestbps=[94,143])
+(54.5,77]              0.327044             0.672956
+[29,54.5]               0.07971              0.92029

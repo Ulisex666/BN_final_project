@@ -14,8 +14,5 @@ df = pd.read_csv('Databases/1IrisD.csv')
 
 bn = chow_liu(df, 'IrisBayesNet')
 bn.learn_CPTs_from_data(df)
-for var in bn.top_sort():
-    print('-'*20)
-    print(bn.get_CPT(var))
-    print('-'*20)
+bn.print_all_CPT('Nets/IrisCPTs')
 bn.show_graphviz("Nets/IrisBayesNet")

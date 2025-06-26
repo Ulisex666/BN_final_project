@@ -1,0 +1,21 @@
+digraph glass {
+	RI
+	Na
+	Mg
+	Al
+	Si
+	K
+	Ca
+	Ba
+	Fe
+	Class
+	Mg -> Class
+	Class -> Al
+	Class -> RI
+	Class -> K
+	Class -> Na
+	Class -> Ba
+	Class -> Fe
+	RI -> Ca
+	RI -> Si
+}

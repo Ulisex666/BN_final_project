@@ -1,0 +1,75 @@
+----------------------------------------
+Variable "health" with parents ""
+----------------------------------------
+P(health=recommended) P(health=priority) P(health=not_recom)
+             0.333333           0.333333            0.333333
+----------------------------------------
+Variable "class" with parents "health"
+----------------------------------------
+     health P(class=recommend) P(class=priority) P(class=not_recom) P(class=very_recom) P(class=spec_prior)
+recommended           0.000463          0.558333                0.0            0.075926            0.365278
+   priority                0.0          0.429167                0.0                 0.0            0.570833
+  not_recom                0.0               0.0                1.0                 0.0                 0.0
+----------------------------------------
+Variable "has_nurs" with parents "class"
+----------------------------------------
+     class P(has_nurs=proper) P(has_nurs=less_proper) P(has_nurs=improper) P(has_nurs=critical) P(has_nurs=very_crit)
+ recommend                1.0                     0.0                  0.0                  0.0                   0.0
+  priority           0.315049                0.315049             0.211908             0.108767              0.049226
+ not_recom                0.2                     0.2                  0.2                  0.2                   0.2
+very_recom           0.396341                0.402439              0.20122                  0.0                   0.0
+spec_prior           0.062315                0.062315             0.187438             0.312562              0.375371
+----------------------------------------
+Variable "parents" with parents "class"
+----------------------------------------
+     class P(parents=usual) P(parents=pretentious) P(parents=great_pret)
+ recommend              1.0                    0.0                   0.0
+  priority         0.451008               0.347867              0.201125
+ not_recom         0.333333               0.333333              0.333333
+very_recom         0.597561               0.402439                   0.0
+spec_prior         0.187438               0.312562                   0.5
+----------------------------------------
+Variable "social" with parents "class"
+----------------------------------------
+     class P(social=nonprob) P(social=slightly_prob) P(social=problematic)
+ recommend               0.5                     0.5                   0.0
+  priority          0.355134                0.355134              0.289733
+ not_recom          0.333333                0.333333              0.333333
+very_recom               0.5                     0.5                   0.0
+spec_prior          0.296736                0.296736              0.406528
+----------------------------------------
+Variable "housing" with parents "class"
+----------------------------------------
+     class P(housing=convenient) P(housing=less_conv) P(housing=critical)
+ recommend                   1.0                  0.0                 0.0
+  priority              0.379278             0.327239            0.293483
+ not_recom              0.333333             0.333333            0.333333
+very_recom              0.634146             0.304878            0.060976
+spec_prior              0.260138             0.342235            0.397626
+----------------------------------------
+Variable "children" with parents "class"
+----------------------------------------
+     class P(children=1hijo) P(children=2hijos) P(children=3hijos) P(children=4más)
+ recommend               1.0                0.0                0.0              0.0
+  priority            0.2827           0.255977           0.230661         0.230661
+ not_recom              0.25               0.25               0.25             0.25
+very_recom           0.45122           0.304878           0.121951         0.121951
+spec_prior          0.198813           0.239367            0.28091          0.28091
+----------------------------------------
+Variable "form" with parents "class"
+----------------------------------------
+     class P(form=complete) P(form=completed) P(form=incomplete) P(form=foster)
+ recommend              1.0               0.0                0.0            0.0
+  priority         0.270042          0.255977           0.243319       0.230661
+ not_recom             0.25              0.25               0.25           0.25
+very_recom         0.359756          0.304878           0.213415       0.121951
+spec_prior         0.219585          0.239367           0.260138        0.28091
+----------------------------------------
+Variable "finance" with parents "class"
+----------------------------------------
+     class P(finance=convenient) P(finance=inconv)
+ recommend                   1.0               0.0
+  priority               0.52602           0.47398
+ not_recom                   0.5               0.5
+very_recom              0.664634          0.335366
+spec_prior              0.458952          0.541048

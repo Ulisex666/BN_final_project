@@ -1,0 +1,29 @@
+digraph Heart {
+	age
+	sex
+	cp
+	trestbps
+	chol
+	fbs
+	restecg
+	thalach
+	exang
+	oldpeak
+	slope
+	ca
+	thal
+	class
+	oldpeak -> slope
+	slope -> thalach
+	slope -> restecg
+	thalach -> class
+	class -> thal
+	class -> cp
+	class -> ca
+	class -> chol
+	thal -> sex
+	cp -> exang
+	cp -> fbs
+	ca -> age
+	age -> trestbps
+}

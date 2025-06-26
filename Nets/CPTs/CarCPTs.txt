@@ -1,0 +1,47 @@
+----------------------------------------
+Variable "safety" with parents ""
+----------------------------------------
+P(safety=low) P(safety=med) P(safety=high)
+     0.333333      0.333333       0.333333
+----------------------------------------
+Variable "class" with parents "safety"
+----------------------------------------
+safety P(class=unacc) P(class=acc) P(class=good)
+   low            1.0          0.0           0.0
+   med       0.619792       0.3125      0.067708
+  high       0.480903     0.354167      0.164931
+----------------------------------------
+Variable "persons" with parents "class"
+----------------------------------------
+class P(persons=2P) P(persons=4P) P(persons=4Mas)
+unacc      0.476033      0.257851        0.266116
+  acc           0.0      0.515625        0.484375
+ good           0.0      0.492537        0.507463
+----------------------------------------
+Variable "buying" with parents "class"
+----------------------------------------
+class P(buying=vhigh) P(buying=high) P(buying=med) P(buying=low)
+unacc        0.297521       0.267769      0.221488      0.213223
+  acc          0.1875        0.28125      0.299479      0.231771
+ good             0.0            0.0      0.365672      0.634328
+----------------------------------------
+Variable "maint" with parents "class"
+----------------------------------------
+class P(maint=vhigh) P(maint=high) P(maint=med) P(maint=low)
+unacc       0.297521      0.259504     0.221488     0.221488
+  acc         0.1875      0.273438     0.299479     0.239583
+ good            0.0      0.097015     0.365672     0.537313
+----------------------------------------
+Variable "lug_boot" with parents "class"
+----------------------------------------
+class P(lug_boot=small) P(lug_boot=med) P(lug_boot=big)
+unacc          0.371901        0.323967        0.304132
+  acc          0.273438        0.351562           0.375
+ good          0.156716        0.365672        0.477612
+----------------------------------------
+Variable "doors" with parents "class"
+----------------------------------------
+class P(doors=2Puertas) P(doors=3Puertas) P(doors=4Puertas) P(doors=5Mas)
+unacc          0.269421          0.247934          0.241322      0.241322
+  acc          0.210938          0.257812          0.265625      0.265625
+ good          0.186567          0.246269          0.283582      0.283582

@@ -1,0 +1,170 @@
+----------------------------------------
+Variable "Patas" with parents ""
+----------------------------------------
+P(Patas=4patas) P(Patas=0patas) P(Patas=2patas) P(Patas=6patas) P(Patas=8patas) P(Patas=5patas)
+       0.376238        0.227723        0.267327         0.09901        0.019802        0.009901
+----------------------------------------
+Variable "Tipo" with parents "Patas"
+----------------------------------------
+ Patas P(Tipo=Mamifero) P(Tipo=Pez) P(Tipo=Ave) P(Tipo=Invertebrado) P(Tipo=Bicho) P(Tipo=Amfibio) P(Tipo=Reptil)
+4patas         0.815789         0.0         0.0             0.026316           0.0        0.105263       0.052632
+0patas         0.130435    0.565217         0.0             0.173913           0.0             0.0       0.130435
+2patas         0.259259         0.0    0.740741                  0.0           0.0             0.0            0.0
+6patas              0.0         0.0         0.0                  0.2           0.8             0.0            0.0
+8patas              0.0         0.0         0.0                  1.0           0.0             0.0            0.0
+5patas              0.0         0.0         0.0                  1.0           0.0             0.0            0.0
+----------------------------------------
+Variable "Leche" with parents "Tipo"
+----------------------------------------
+        Tipo P(Leche=DaLeche) P(Leche=NoLeche)
+    Mamifero              1.0              0.0
+         Pez              0.0              1.0
+         Ave              0.0              1.0
+Invertebrado              0.0              1.0
+       Bicho              0.0              1.0
+     Amfibio              0.0              1.0
+      Reptil              0.0              1.0
+----------------------------------------
+Variable "Dentado" with parents "Tipo"
+----------------------------------------
+        Tipo P(Dentado=Dentado) P(Dentado=NoDentado)
+    Mamifero            0.97561              0.02439
+         Pez                1.0                  0.0
+         Ave                0.0                  1.0
+Invertebrado                0.0                  1.0
+       Bicho                0.0                  1.0
+     Amfibio                1.0                  0.0
+      Reptil                0.8                  0.2
+----------------------------------------
+Variable "Huevos" with parents "Tipo"
+----------------------------------------
+        Tipo P(Huevos=NoHuevos) P(Huevos=PoneHuevos)
+    Mamifero            0.97561              0.02439
+         Pez                0.0                  1.0
+         Ave                0.0                  1.0
+Invertebrado                0.1                  0.9
+       Bicho                0.0                  1.0
+     Amfibio                0.0                  1.0
+      Reptil                0.2                  0.8
+----------------------------------------
+Variable "Pelo" with parents "Tipo"
+----------------------------------------
+        Tipo P(Pelo=TienePelo) P(Pelo=NoPelo)
+    Mamifero           0.95122        0.04878
+         Pez               0.0            1.0
+         Ave               0.0            1.0
+Invertebrado               0.0            1.0
+       Bicho               0.5            0.5
+     Amfibio               0.0            1.0
+      Reptil               0.0            1.0
+----------------------------------------
+Variable "Plumas" with parents "Tipo"
+----------------------------------------
+        Tipo P(Plumas=NoPlumas) P(Plumas=TienePlumas)
+    Mamifero                1.0                   0.0
+         Pez                1.0                   0.0
+         Ave                0.0                   1.0
+Invertebrado                1.0                   0.0
+       Bicho                1.0                   0.0
+     Amfibio                1.0                   0.0
+      Reptil                1.0                   0.0
+----------------------------------------
+Variable "Vertebrado" with parents "Tipo"
+----------------------------------------
+        Tipo P(Vertebrado=Vertebrado) P(Vertebrado=NoVetebrado)
+    Mamifero                      1.0                       0.0
+         Pez                      1.0                       0.0
+         Ave                      1.0                       0.0
+Invertebrado                      0.0                       1.0
+       Bicho                      0.0                       1.0
+     Amfibio                      1.0                       0.0
+      Reptil                      1.0                       0.0
+----------------------------------------
+Variable "Respira" with parents "Tipo"
+----------------------------------------
+        Tipo P(Respira=Respira) P(Respira=NoRespira)
+    Mamifero                1.0                  0.0
+         Pez                0.0                  1.0
+         Ave                1.0                  0.0
+Invertebrado                0.3                  0.7
+       Bicho                1.0                  0.0
+     Amfibio                1.0                  0.0
+      Reptil                0.8                  0.2
+----------------------------------------
+Variable "Cola" with parents "Tipo"
+----------------------------------------
+        Tipo P(Cola=NoCola) P(Cola=Cola)
+    Mamifero       0.146341     0.853659
+         Pez            0.0          1.0
+         Ave            0.0          1.0
+Invertebrado            0.9          0.1
+       Bicho            1.0          0.0
+     Amfibio           0.75         0.25
+      Reptil            0.0          1.0
+----------------------------------------
+Variable "Volador" with parents "Tipo"
+----------------------------------------
+        Tipo P(Volador=NoVuela) P(Volador=Vuela)
+    Mamifero            0.95122          0.04878
+         Pez                1.0              0.0
+         Ave                0.2              0.8
+Invertebrado                1.0              0.0
+       Bicho               0.25             0.75
+     Amfibio                1.0              0.0
+      Reptil                1.0              0.0
+----------------------------------------
+Variable "Aletas" with parents "Tipo"
+----------------------------------------
+        Tipo P(Aletas=NoAletas) P(Aletas=Aletas)
+    Mamifero           0.902439         0.097561
+         Pez                0.0              1.0
+         Ave                1.0              0.0
+Invertebrado                1.0              0.0
+       Bicho                1.0              0.0
+     Amfibio                1.0              0.0
+      Reptil                1.0              0.0
+----------------------------------------
+Variable "Acuatico" with parents "Tipo"
+----------------------------------------
+        Tipo P(Acuatico=NoAcuatico) P(Acuatico=Acuatico)
+    Mamifero               0.853659             0.146341
+         Pez                    0.0                  1.0
+         Ave                    0.7                  0.3
+Invertebrado                    0.4                  0.6
+       Bicho                    1.0                  0.0
+     Amfibio                    0.0                  1.0
+      Reptil                    0.8                  0.2
+----------------------------------------
+Variable "catsize" with parents "Tipo"
+----------------------------------------
+        Tipo P(catsize=Catsize) P(catsize=NoCatsize)
+    Mamifero           0.780488             0.219512
+         Pez           0.307692             0.692308
+         Ave                0.3                  0.7
+Invertebrado                0.1                  0.9
+       Bicho                0.0                  1.0
+     Amfibio                0.0                  1.0
+      Reptil                0.2                  0.8
+----------------------------------------
+Variable "Venenoso" with parents "Tipo"
+----------------------------------------
+        Tipo P(Venenoso=NoVenenoso) P(Venenoso=Venenoso)
+    Mamifero                    1.0                  0.0
+         Pez               0.923077             0.076923
+         Ave                    1.0                  0.0
+Invertebrado                    0.8                  0.2
+       Bicho                   0.75                 0.25
+     Amfibio                   0.75                 0.25
+      Reptil                    0.6                  0.4
+----------------------------------------
+Variable "Depredador" with parents "Acuatico"
+----------------------------------------
+  Acuatico P(Depredador=Depredador) P(Depredador=NoDepredador)
+NoAcuatico                 0.415385                   0.584615
+  Acuatico                 0.805556                   0.194444
+----------------------------------------
+Variable "Domestico" with parents "Depredador"
+----------------------------------------
+  Depredador P(Domestico=NoDomestico) P(Domestico=Domestico)
+  Depredador                 0.964286               0.035714
+NoDepredador                 0.755556               0.244444

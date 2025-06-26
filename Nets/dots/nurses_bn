@@ -1,0 +1,19 @@
+digraph Nurses {
+	parents
+	has_nurs
+	form
+	children
+	housing
+	finance
+	social
+	health
+	class
+	health -> class
+	class -> has_nurs
+	class -> parents
+	class -> social
+	class -> housing
+	class -> children
+	class -> form
+	class -> finance
+}

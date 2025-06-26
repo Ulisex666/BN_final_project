@@ -1,0 +1,17 @@
+digraph Raisins {
+	Area
+	MajorAxisLength
+	MinorAxisLength
+	Eccentricity
+	ConvexArea
+	Extent
+	Perimeter
+	Class
+	Area -> ConvexArea
+	Area -> Perimeter
+	Area -> MinorAxisLength
+	Perimeter -> MajorAxisLength
+	MajorAxisLength -> Class
+	MajorAxisLength -> Eccentricity
+	Eccentricity -> Extent
+}

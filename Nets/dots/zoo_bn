@@ -1,0 +1,35 @@
+digraph zoo {
+	Pelo
+	Plumas
+	Huevos
+	Leche
+	Volador
+	Acuatico
+	Depredador
+	Dentado
+	Vertebrado
+	Respira
+	Venenoso
+	Aletas
+	Patas
+	Cola
+	Domestico
+	catsize
+	Tipo
+	Patas -> Tipo
+	Tipo -> Leche
+	Tipo -> Dentado
+	Tipo -> Huevos
+	Tipo -> Pelo
+	Tipo -> Plumas
+	Tipo -> Vertebrado
+	Tipo -> Respira
+	Tipo -> Cola
+	Tipo -> Volador
+	Tipo -> Aletas
+	Tipo -> Acuatico
+	Tipo -> catsize
+	Tipo -> Venenoso
+	Acuatico -> Depredador
+	Depredador -> Domestico
+}

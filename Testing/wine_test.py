@@ -6,9 +6,8 @@ from BayesNet.BayesNet import *
 from BayesNet.net_learning import *
 import pandas as pd
  
-df = pd.read_csv('Testing/3WinesD.csv')
+df = pd.read_csv('Databases/3WinesD.csv')
 bn = chow_liu(df, 'Wine')
 bn.learn_CPTs_from_data(df)
-for var in bn.top_sort():
-    print(bn.get_CPT(var))
+bn.print_all_CPT('Nets/WineCPTs')
 bn.show_graphviz('Nets/wine_bn')

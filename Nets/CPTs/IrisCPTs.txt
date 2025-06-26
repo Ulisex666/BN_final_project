@@ -1,0 +1,33 @@
+----------------------------------------
+Variable "Petal.Width" with parents ""
+----------------------------------------
+P(Petal.Width=[0.1,0.8]) P(Petal.Width=(0.8,1.75]) P(Petal.Width=(1.75,2.5])
+                0.333333                      0.36                  0.306667
+----------------------------------------
+Variable "Species" with parents "Petal.Width"
+----------------------------------------
+Petal.Width P(Species=setosa) P(Species=versicolor) P(Species=virginica)
+  [0.1,0.8]               1.0                   0.0                  0.0
+ (0.8,1.75]               0.0              0.907407             0.092593
+ (1.75,2.5]               0.0              0.021739             0.978261
+----------------------------------------
+Variable "Sepal.Width" with parents "Petal.Width"
+----------------------------------------
+Petal.Width P(Sepal.Width=(3.05,4.4]) P(Sepal.Width=(2.95,3.05]) P(Sepal.Width=[2,2.95])
+  [0.1,0.8]                      0.84                       0.12                    0.04
+ (0.8,1.75]                   0.12963                   0.166667                0.703704
+ (1.75,2.5]                  0.391304                    0.23913                0.369565
+----------------------------------------
+Variable "Petal.Length" with parents "Species"
+----------------------------------------
+   Species P(Petal.Length=[1,2.45]) P(Petal.Length=(2.45,4.75]) P(Petal.Length=(4.75,6.9])
+    setosa                      1.0                         0.0                        0.0
+versicolor                      0.0                        0.88                       0.12
+ virginica                      0.0                        0.02                       0.98
+----------------------------------------
+Variable "Sepal.Length" with parents "Petal.Length"
+----------------------------------------
+Petal.Length P(Sepal.Length=[4.3,5.55]) P(Sepal.Length=(5.55,6.25]) P(Sepal.Length=(6.25,7.9])
+    [1,2.45]                       0.94                        0.06                        0.0
+ (2.45,4.75]                   0.266667                    0.511111                   0.222222
+  (4.75,6.9]                        0.0                    0.254545                   0.745455

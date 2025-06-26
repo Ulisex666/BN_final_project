@@ -1,0 +1,15 @@
+digraph Car {
+	buying
+	maint
+	doors
+	persons
+	lug_boot
+	safety
+	class
+	safety -> class
+	class -> persons
+	class -> buying
+	class -> maint
+	class -> lug_boot
+	class -> doors
+}

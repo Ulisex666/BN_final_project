@@ -1,5 +1,6 @@
 import warnings
 import pandas as pd
+import sys
 from itertools import product
 from BayesNet.utils import *
 
@@ -517,6 +518,21 @@ class BayesNet:
         
     def get_CPT(self, var_name:str) -> CPT:
         return self.CPTs[var_name]
+    
+    def print_all_CPT(self, filename=''):
+        if filename:
+            o = sys.stdout
+            file = filename + '.txt'
+            with open(file, 'w') as f:
+                sys.stdout = f
+                for var in self.top_sort():
+                    print(self.get_CPT(var))
+                    
+            sys.stdout = o
+            
+        for var in self.top_sort():
+            print(self.get_CPT(var))
+                  
     
     def learn_CPTs_from_data(self, df: pd.DataFrame):
         """

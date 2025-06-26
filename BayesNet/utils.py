@@ -35,4 +35,5 @@ def get_mutual_info(df: pd.DataFrame, var1:str, var2:str) -> float:
         
     return mutual_info
 
+
     

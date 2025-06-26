@@ -1,0 +1,15 @@
+digraph Maternal {
+	Age
+	SystolicBP
+	DiastolicBP
+	BS
+	BodyTemp
+	HeartRate
+	RiskLevel
+	BS -> RiskLevel
+	BS -> Age
+	RiskLevel -> SystolicBP
+	Age -> BodyTemp
+	SystolicBP -> DiastolicBP
+	SystolicBP -> HeartRate
+}
