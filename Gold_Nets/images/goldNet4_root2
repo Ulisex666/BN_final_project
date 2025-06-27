@@ -1,0 +1,17 @@
+digraph GoldNet4 {
+	Node1
+	Node2
+	Node3
+	Node4
+	Node5
+	Node6
+	Node7
+	Node8
+	Node2 -> Node7
+	Node7 -> Node8
+	Node7 -> Node1
+	Node8 -> Node5
+	Node1 -> Node6
+	Node5 -> Node4
+	Node4 -> Node3
+}

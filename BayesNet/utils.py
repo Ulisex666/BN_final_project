@@ -74,4 +74,33 @@ def export_to_pyagrum(bn) -> gum.BayesNet:
                     gum_bn.cpt(var_name)[full_inst] = prob
     return gum_bn
 
+def classify_and_accuracy(gum_bn: gum.BayesNet, df_test: pd.DataFrame, target_var: str) -> float:
+    correct = 0
+    total = len(df_test)
     
+    ie = gum.LazyPropagation(gum_bn)
+    
+    for _, row in df_test.iterrows():
+        # Extraer evidencia (omitimos la clase objetivo)
+        evidence = {
+            var: str(row[var])
+            for var in df_test.columns
+            if var != target_var and pd.notna(row[var])
+        }
+        
+        # Aplicar inferencia
+        ie.setEvidence(evidence)
+        ie.makeInference()
+        posterior = ie.posterior(target_var)
+        
+        # Predecir la clase con mayor probabilidad
+        # Obtener el índice del valor con mayor probabilidad para la variable target
+        predicted_index = posterior.argmax()[0][0][target_var] # type: ignore
+        predicted_class = gum_bn.variable(target_var).label(predicted_index)
+        actual_class = str(row[target_var])
+        
+        if predicted_class == actual_class:
+            correct += 1
+
+    accuracy = correct / total
+    return accuracy
