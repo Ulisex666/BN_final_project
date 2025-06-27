@@ -1,0 +1,14 @@
+dif estructural red1 = 0 + 0 + 0 + 0 + 1 = 1
+dif estructural red1 con raiz = 1
+
+dif estructural red2 = 1 + 1 + 1 + 1 + 0 + 0 + 0 + 0 = 4
+dif estructural red2 con raiz = 0 + 1 + 1 + 1 + 1 + 0 + 0 + 0 = 4
+
+dif estructural red3 = 1 + 1 + 1 + 1 + 0 + 1 + 1 + 1 = 7
+dif estructural red3 con raiz = 0 + 1 + 1 + 1 + 1 + 1 + 1 + 1 = 7
+
+dif estructural red4 = 1 + 1 + 1 + 1 + 0 + 0 + 1 +1 = 6
+dif estructural red4 con raiz = 1 + 0 + 1 + 1 + 1 + 0 + 0 + 0 = 4
+
+dif estructural red5 =  1 + 1 + 1 + 0 + 0 + 0 = 3
+dif estructural red5 con raiz = 1 + 0 + 0 + 0 + 0 + 0 = 1

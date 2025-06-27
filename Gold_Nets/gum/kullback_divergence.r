@@ -1,0 +1,5 @@
+library(bnlearn, help, pos = 2, lib.loc = NULL)
+library(gRain)
+learned_bn <- read.bif("Gold_Nets/gum/goldNet5_root2_corrected.bif")
+real_bn <- read.bif("Gold_Nets/gum/real_goldNet5_corrected.bif")
+KL(learned_bn, real_bn)

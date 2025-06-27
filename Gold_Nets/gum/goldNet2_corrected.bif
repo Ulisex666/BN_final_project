@@ -1,0 +1,68 @@
+network "GoldNet2" {
+// written by aGrUM 2.1.1
+}
+
+variable Node1 {
+   type discrete[2] { Value2, Value1 };
+}
+
+variable Node2 {
+   type discrete[2] { Value1, Value2 };
+}
+
+variable Node3 {
+   type discrete[2] { Value1, Value2 };
+}
+
+variable Node4 {
+   type discrete[2] { Value2, Value1 };
+}
+
+variable Node5 {
+   type discrete[2] { Value1, Value2 };
+}
+
+variable Node6 {
+   type discrete[2] { Value2, Value1 };
+}
+
+variable Node7 {
+   type discrete[2] { Value2, Value1 };
+}
+
+variable Node8 {
+   type discrete[2] { Value2, Value1 };
+}
+
+probability ( Node1 | Node5 ) {
+   (Value1) 0.397386, 0.602614;
+   (Value2) 0.33617, 0.66383;
+}
+probability ( Node2 | Node4 ) {
+   (Value2) 0.725664, 0.274336;
+   (Value1) 0.795031, 0.204969;
+}
+probability ( Node3 | Node4 ) {
+   (Value2) 0.256637, 0.743363;
+   (Value1) 0.745342, 0.254658;
+}
+probability ( Node4 ) {
+   table 0.678, 0.322;
+}
+probability ( Node5 | Node4 ) {
+   (Value2) 0.935103, 0.0648968;
+   (Value1) 0.406832, 0.593168;
+}
+probability ( Node6 | Node1 ) {
+   (Value2) 0.344648, 0.655352;
+   (Value1) 0.184765, 0.815235;
+}
+probability ( Node7 | Node2 ) {
+   (Value1) 0.759358, 0.240642;
+   (Value2) 0.93254, 0.0674603;
+}
+probability ( Node8 | Node7 ) {
+   (Value2) 0.689913, 0.310087;
+   (Value1) 0.0406091, 0.959391;
+}
+

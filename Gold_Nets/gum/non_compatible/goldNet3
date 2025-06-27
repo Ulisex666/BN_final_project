@@ -1,4 +1,4 @@
-network "GoldNet3_root1" {
+network "GoldNet3" {
 // written by aGrUM 2.1.1
 }
 
@@ -34,8 +34,9 @@ variable Node8 {
    type discrete[2] {Value2, Value1};
 }
 
-probability (Node1) {
-   table 0.383 0.617;
+probability (Node1 | Node5) {
+   (Value1) 0.397386 0.602614;
+   (Value2) 0.33617 0.66383;
 }
 probability (Node2 | Node4) {
    (Value2) 0.725664 0.274336;
@@ -45,13 +46,12 @@ probability (Node3 | Node4) {
    (Value2) 0.256637 0.743363;
    (Value1) 0.745342 0.254658;
 }
-probability (Node4 | Node5) {
-   (Value1) 0.828758 0.171242;
-   (Value2) 0.187234 0.812766;
+probability (Node4) {
+   table 0.678 0.322;
 }
-probability (Node5 | Node1) {
-   (Value2) 0.793734 0.206266;
-   (Value1) 0.747164 0.252836;
+probability (Node5 | Node4) {
+   (Value2) 0.935103 0.0648968;
+   (Value1) 0.406832 0.593168;
 }
 probability (Node6 | Node1) {
    (Value2) 0.344648 0.655352;
