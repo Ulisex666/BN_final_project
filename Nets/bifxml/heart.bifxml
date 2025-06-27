@@ -1,0 +1,260 @@
+<?xml version="1.0" ?>
+
+<BIF VERSION="0.3">
+<NETWORK>
+<NAME>Heart</NAME>
+<PROPERTY>software aGrUM</PROPERTY>
+
+<!-- Variables -->
+<VARIABLE TYPE="nature">
+	<NAME>age</NAME>
+	<PROPERTY>description = age</PROPERTY>
+	<PROPERTY>fast = age{(54.5,77]|[29,54.5]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(54.5,77]</OUTCOME>
+	<OUTCOME>[29,54.5]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>sex</NAME>
+	<PROPERTY>description = sex</PROPERTY>
+	<PROPERTY>fast = sex{Hombre|Mujer}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Hombre</OUTCOME>
+	<OUTCOME>Mujer</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>cp</NAME>
+	<PROPERTY>description = cp</PROPERTY>
+	<PROPERTY>fast = cp{Angina|Asintomatico|NoAnginal|Atipico}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Angina</OUTCOME>
+	<OUTCOME>Asintomatico</OUTCOME>
+	<OUTCOME>NoAnginal</OUTCOME>
+	<OUTCOME>Atipico</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>trestbps</NAME>
+	<PROPERTY>description = trestbps</PROPERTY>
+	<PROPERTY>fast = trestbps{(143,200]|[94,143]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(143,200]</OUTCOME>
+	<OUTCOME>[94,143]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>chol</NAME>
+	<PROPERTY>description = chol</PROPERTY>
+	<PROPERTY>fast = chol{[126,274]|(274,564]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>[126,274]</OUTCOME>
+	<OUTCOME>(274,564]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>fbs</NAME>
+	<PROPERTY>description = fbs</PROPERTY>
+	<PROPERTY>fast = fbs{mas120|menos120}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>mas120</OUTCOME>
+	<OUTCOME>menos120</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>restecg</NAME>
+	<PROPERTY>description = restecg</PROPERTY>
+	<PROPERTY>fast = restecg{Ventricular|Normal|Anormalidad}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Ventricular</OUTCOME>
+	<OUTCOME>Normal</OUTCOME>
+	<OUTCOME>Anormalidad</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>thalach</NAME>
+	<PROPERTY>description = thalach</PROPERTY>
+	<PROPERTY>fast = thalach{(148,202]|[71,148]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(148,202]</OUTCOME>
+	<OUTCOME>[71,148]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>exang</NAME>
+	<PROPERTY>description = exang</PROPERTY>
+	<PROPERTY>fast = exang{Noinducido|Inducido}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Noinducido</OUTCOME>
+	<OUTCOME>Inducido</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>oldpeak</NAME>
+	<PROPERTY>description = oldpeak</PROPERTY>
+	<PROPERTY>fast = oldpeak{(0.85,6.2]|[0,0.85]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(0.85,6.2]</OUTCOME>
+	<OUTCOME>[0,0.85]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>slope</NAME>
+	<PROPERTY>description = slope</PROPERTY>
+	<PROPERTY>fast = slope{Descendente|Plana|Ascendente}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Descendente</OUTCOME>
+	<OUTCOME>Plana</OUTCOME>
+	<OUTCOME>Ascendente</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>ca</NAME>
+	<PROPERTY>description = ca</PROPERTY>
+	<PROPERTY>fast = ca{[0,0.5]|(0.5,3]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>[0,0.5]</OUTCOME>
+	<OUTCOME>(0.5,3]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>thal</NAME>
+	<PROPERTY>description = thal</PROPERTY>
+	<PROPERTY>fast = thal{DefectoFijo|Normal|DefectoReversible}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>DefectoFijo</OUTCOME>
+	<OUTCOME>Normal</OUTCOME>
+	<OUTCOME>DefectoReversible</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>class</NAME>
+	<PROPERTY>description = class</PROPERTY>
+	<PROPERTY>fast = class{Sano|Enfermo}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Sano</OUTCOME>
+	<OUTCOME>Enfermo</OUTCOME>
+</VARIABLE>
+
+<!-- Probability distributions -->
+<DEFINITION>
+	<FOR>age</FOR>
+	<GIVEN>ca</GIVEN>
+	<TABLE>
+		0.402299 0.597701
+		0.723577 0.276423
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>sex</FOR>
+	<GIVEN>thal</GIVEN>
+	<TABLE>
+		0.944444 0.0555556
+		0.512195 0.487805
+		0.869565 0.130435
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>cp</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.1 0.24375 0.40625 0.25
+		0.0510949 0.751825 0.131387 0.0656934
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>trestbps</FOR>
+	<GIVEN>age</GIVEN>
+	<TABLE>
+		0.327044 0.672956
+		0.0797101 0.92029
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>chol</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.79375 0.20625
+		0.656934 0.343066
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>fbs</FOR>
+	<GIVEN>cp</GIVEN>
+	<TABLE>
+		0.217391 0.782609
+		0.112676 0.887324
+		0.204819 0.795181
+		0.102041 0.897959
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>restecg</FOR>
+	<GIVEN>slope</GIVEN>
+	<TABLE>
+		0.571429 0.380952 0.047619
+		0.547445 0.430657 0.0218978
+		0.42446 0.57554 0
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>thalach</FOR>
+	<GIVEN>slope</GIVEN>
+	<TABLE>
+		0.47619 0.52381
+		0.364964 0.635036
+		0.81295 0.18705
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>exang</FOR>
+	<GIVEN>cp</GIVEN>
+	<TABLE>
+		0.826087 0.173913
+		0.450704 0.549296
+		0.86747 0.13253
+		0.918367 0.0816327
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>oldpeak</FOR>
+	<TABLE>
+		0.468013 0.531987
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>slope</FOR>
+	<GIVEN>oldpeak</GIVEN>
+	<TABLE>
+		0.129496 0.683453 0.18705
+		0.0189873 0.265823 0.71519
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>ca</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.80625 0.19375
+		0.328467 0.671533
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>thal</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.0375 0.79375 0.16875
+		0.0875912 0.270073 0.642336
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>class</FOR>
+	<GIVEN>thalach</GIVEN>
+	<TABLE>
+		0.716763 0.283237
+		0.290323 0.709677
+	</TABLE>
+</DEFINITION>
+
+</NETWORK>
+</BIF>

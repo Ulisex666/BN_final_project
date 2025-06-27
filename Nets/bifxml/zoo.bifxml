@@ -1,0 +1,377 @@
+<?xml version="1.0" ?>
+
+<BIF VERSION="0.3">
+<NETWORK>
+<NAME>zoo</NAME>
+<PROPERTY>software aGrUM</PROPERTY>
+
+<!-- Variables -->
+<VARIABLE TYPE="nature">
+	<NAME>Pelo</NAME>
+	<PROPERTY>description = Pelo</PROPERTY>
+	<PROPERTY>fast = Pelo{TienePelo|NoPelo}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>TienePelo</OUTCOME>
+	<OUTCOME>NoPelo</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Plumas</NAME>
+	<PROPERTY>description = Plumas</PROPERTY>
+	<PROPERTY>fast = Plumas{NoPlumas|TienePlumas}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>NoPlumas</OUTCOME>
+	<OUTCOME>TienePlumas</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Huevos</NAME>
+	<PROPERTY>description = Huevos</PROPERTY>
+	<PROPERTY>fast = Huevos{NoHuevos|PoneHuevos}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>NoHuevos</OUTCOME>
+	<OUTCOME>PoneHuevos</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Leche</NAME>
+	<PROPERTY>description = Leche</PROPERTY>
+	<PROPERTY>fast = Leche{DaLeche|NoLeche}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>DaLeche</OUTCOME>
+	<OUTCOME>NoLeche</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Volador</NAME>
+	<PROPERTY>description = Volador</PROPERTY>
+	<PROPERTY>fast = Volador{NoVuela|Vuela}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>NoVuela</OUTCOME>
+	<OUTCOME>Vuela</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Acuatico</NAME>
+	<PROPERTY>description = Acuatico</PROPERTY>
+	<PROPERTY>fast = Acuatico{NoAcuatico|Acuatico}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>NoAcuatico</OUTCOME>
+	<OUTCOME>Acuatico</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Depredador</NAME>
+	<PROPERTY>description = Depredador</PROPERTY>
+	<PROPERTY>fast = Depredador{Depredador|NoDepredador}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Depredador</OUTCOME>
+	<OUTCOME>NoDepredador</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Dentado</NAME>
+	<PROPERTY>description = Dentado</PROPERTY>
+	<PROPERTY>fast = Dentado{Dentado|NoDentado}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Dentado</OUTCOME>
+	<OUTCOME>NoDentado</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Vertebrado</NAME>
+	<PROPERTY>description = Vertebrado</PROPERTY>
+	<PROPERTY>fast = Vertebrado{Vertebrado|NoVetebrado}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Vertebrado</OUTCOME>
+	<OUTCOME>NoVetebrado</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Respira</NAME>
+	<PROPERTY>description = Respira</PROPERTY>
+	<PROPERTY>fast = Respira{Respira|NoRespira}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Respira</OUTCOME>
+	<OUTCOME>NoRespira</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Venenoso</NAME>
+	<PROPERTY>description = Venenoso</PROPERTY>
+	<PROPERTY>fast = Venenoso{NoVenenoso|Venenoso}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>NoVenenoso</OUTCOME>
+	<OUTCOME>Venenoso</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Aletas</NAME>
+	<PROPERTY>description = Aletas</PROPERTY>
+	<PROPERTY>fast = Aletas{NoAletas|Aletas}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>NoAletas</OUTCOME>
+	<OUTCOME>Aletas</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Patas</NAME>
+	<PROPERTY>description = Patas</PROPERTY>
+	<PROPERTY>fast = Patas{4patas|0patas|2patas|6patas|8patas|5patas}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>4patas</OUTCOME>
+	<OUTCOME>0patas</OUTCOME>
+	<OUTCOME>2patas</OUTCOME>
+	<OUTCOME>6patas</OUTCOME>
+	<OUTCOME>8patas</OUTCOME>
+	<OUTCOME>5patas</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Cola</NAME>
+	<PROPERTY>description = Cola</PROPERTY>
+	<PROPERTY>fast = Cola{NoCola|Cola}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>NoCola</OUTCOME>
+	<OUTCOME>Cola</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Domestico</NAME>
+	<PROPERTY>description = Domestico</PROPERTY>
+	<PROPERTY>fast = Domestico{NoDomestico|Domestico}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>NoDomestico</OUTCOME>
+	<OUTCOME>Domestico</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>catsize</NAME>
+	<PROPERTY>description = catsize</PROPERTY>
+	<PROPERTY>fast = catsize{Catsize|NoCatsize}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Catsize</OUTCOME>
+	<OUTCOME>NoCatsize</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Tipo</NAME>
+	<PROPERTY>description = Tipo</PROPERTY>
+	<PROPERTY>fast = Tipo{Mamifero|Pez|Ave|Invertebrado|Bicho|Amfibio|Reptil}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Mamifero</OUTCOME>
+	<OUTCOME>Pez</OUTCOME>
+	<OUTCOME>Ave</OUTCOME>
+	<OUTCOME>Invertebrado</OUTCOME>
+	<OUTCOME>Bicho</OUTCOME>
+	<OUTCOME>Amfibio</OUTCOME>
+	<OUTCOME>Reptil</OUTCOME>
+</VARIABLE>
+
+<!-- Probability distributions -->
+<DEFINITION>
+	<FOR>Pelo</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		0.95122 0.0487805
+		0 1
+		0 1
+		0 1
+		0.5 0.5
+		0 1
+		0 1
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Plumas</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		1 0
+		1 0
+		0 1
+		1 0
+		1 0
+		1 0
+		1 0
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Huevos</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		0.97561 0.0243902
+		0 1
+		0 1
+		0.1 0.9
+		0 1
+		0 1
+		0.2 0.8
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Leche</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		1 0
+		0 1
+		0 1
+		0 1
+		0 1
+		0 1
+		0 1
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Volador</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		0.95122 0.0487805
+		1 0
+		0.2 0.8
+		1 0
+		0.25 0.75
+		1 0
+		1 0
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Acuatico</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		0.853659 0.146341
+		0 1
+		0.7 0.3
+		0.4 0.6
+		1 0
+		0 1
+		0.8 0.2
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Depredador</FOR>
+	<GIVEN>Acuatico</GIVEN>
+	<TABLE>
+		0.415385 0.584615
+		0.805556 0.194444
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Dentado</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		0.97561 0.0243902
+		1 0
+		0 1
+		0 1
+		0 1
+		1 0
+		0.8 0.2
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Vertebrado</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		1 0
+		1 0
+		1 0
+		0 1
+		0 1
+		1 0
+		1 0
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Respira</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		1 0
+		0 1
+		1 0
+		0.3 0.7
+		1 0
+		1 0
+		0.8 0.2
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Venenoso</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		1 0
+		0.923077 0.0769231
+		1 0
+		0.8 0.2
+		0.75 0.25
+		0.75 0.25
+		0.6 0.4
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Aletas</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		0.902439 0.097561
+		0 1
+		1 0
+		1 0
+		1 0
+		1 0
+		1 0
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Patas</FOR>
+	<TABLE>
+		0.376238 0.227723 0.267327 0.0990099 0.019802 0.00990099
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Cola</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		0.146341 0.853659
+		0 1
+		0 1
+		0.9 0.1
+		1 0
+		0.75 0.25
+		0 1
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Domestico</FOR>
+	<GIVEN>Depredador</GIVEN>
+	<TABLE>
+		0.964286 0.0357143
+		0.755556 0.244444
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>catsize</FOR>
+	<GIVEN>Tipo</GIVEN>
+	<TABLE>
+		0.780488 0.219512
+		0.307692 0.692308
+		0.3 0.7
+		0.1 0.9
+		0 1
+		0 1
+		0.2 0.8
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Tipo</FOR>
+	<GIVEN>Patas</GIVEN>
+	<TABLE>
+		0.815789 0 0 0.0263158 0 0.105263 0.0526316
+		0.130435 0.565217 0 0.173913 0 0 0.130435
+		0.259259 0 0.740741 0 0 0 0
+		0 0 0 0.2 0.8 0 0
+		0 0 0 1 0 0 0
+		0 0 0 1 0 0 0
+	</TABLE>
+</DEFINITION>
+
+</NETWORK>
+</BIF>

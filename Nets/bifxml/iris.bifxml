@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+
+<BIF VERSION="0.3">
+<NETWORK>
+<NAME>IrisBayesNet</NAME>
+<PROPERTY>software aGrUM</PROPERTY>
+
+<!-- Variables -->
+<VARIABLE TYPE="nature">
+	<NAME>Sepal.Length</NAME>
+	<PROPERTY>description = Sepal.Length</PROPERTY>
+	<PROPERTY>fast = Sepal.Length{[4.3,5.55]|(5.55,6.25]|(6.25,7.9]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>[4.3,5.55]</OUTCOME>
+	<OUTCOME>(5.55,6.25]</OUTCOME>
+	<OUTCOME>(6.25,7.9]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Sepal.Width</NAME>
+	<PROPERTY>description = Sepal.Width</PROPERTY>
+	<PROPERTY>fast = Sepal.Width{(3.05,4.4]|(2.95,3.05]|[2,2.95]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(3.05,4.4]</OUTCOME>
+	<OUTCOME>(2.95,3.05]</OUTCOME>
+	<OUTCOME>[2,2.95]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Petal.Length</NAME>
+	<PROPERTY>description = Petal.Length</PROPERTY>
+	<PROPERTY>fast = Petal.Length{[1,2.45]|(2.45,4.75]|(4.75,6.9]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>[1,2.45]</OUTCOME>
+	<OUTCOME>(2.45,4.75]</OUTCOME>
+	<OUTCOME>(4.75,6.9]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Petal.Width</NAME>
+	<PROPERTY>description = Petal.Width</PROPERTY>
+	<PROPERTY>fast = Petal.Width{[0.1,0.8]|(0.8,1.75]|(1.75,2.5]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>[0.1,0.8]</OUTCOME>
+	<OUTCOME>(0.8,1.75]</OUTCOME>
+	<OUTCOME>(1.75,2.5]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Species</NAME>
+	<PROPERTY>description = Species</PROPERTY>
+	<PROPERTY>fast = Species{setosa|versicolor|virginica}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>setosa</OUTCOME>
+	<OUTCOME>versicolor</OUTCOME>
+	<OUTCOME>virginica</OUTCOME>
+</VARIABLE>
+
+<!-- Probability distributions -->
+<DEFINITION>
+	<FOR>Sepal.Length</FOR>
+	<GIVEN>Petal.Length</GIVEN>
+	<TABLE>
+		0.94 0.06 0
+		0.266667 0.511111 0.222222
+		0 0.254545 0.745455
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Sepal.Width</FOR>
+	<GIVEN>Petal.Width</GIVEN>
+	<TABLE>
+		0.84 0.12 0.04
+		0.12963 0.166667 0.703704
+		0.391304 0.23913 0.369565
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Petal.Length</FOR>
+	<GIVEN>Species</GIVEN>
+	<TABLE>
+		1 0 0
+		0 0.88 0.12
+		0 0.02 0.98
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Petal.Width</FOR>
+	<TABLE>
+		0.333333 0.36 0.306667
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Species</FOR>
+	<GIVEN>Petal.Width</GIVEN>
+	<TABLE>
+		1 0 0
+		0 0.907407 0.0925926
+		0 0.0217391 0.978261
+	</TABLE>
+</DEFINITION>
+
+</NETWORK>
+</BIF>

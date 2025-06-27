@@ -1,0 +1,142 @@
+<?xml version="1.0" ?>
+
+<BIF VERSION="0.3">
+<NETWORK>
+<NAME>Maternal</NAME>
+<PROPERTY>software aGrUM</PROPERTY>
+
+<!-- Variables -->
+<VARIABLE TYPE="nature">
+	<NAME>Age</NAME>
+	<PROPERTY>description = Age</PROPERTY>
+	<PROPERTY>fast = Age{(24.5,31.5]|(31.5,70]|[10,24.5]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(24.5,31.5]</OUTCOME>
+	<OUTCOME>(31.5,70]</OUTCOME>
+	<OUTCOME>[10,24.5]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>SystolicBP</NAME>
+	<PROPERTY>description = SystolicBP</PROPERTY>
+	<PROPERTY>fast = SystolicBP{(130,132]|(132,160]|[70,130]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(130,132]</OUTCOME>
+	<OUTCOME>(132,160]</OUTCOME>
+	<OUTCOME>[70,130]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>DiastolicBP</NAME>
+	<PROPERTY>description = DiastolicBP</PROPERTY>
+	<PROPERTY>fast = DiastolicBP{(55,92.5]|(92.5,100]|[49,55]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(55,92.5]</OUTCOME>
+	<OUTCOME>(92.5,100]</OUTCOME>
+	<OUTCOME>[49,55]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>BS</NAME>
+	<PROPERTY>description = BS</PROPERTY>
+	<PROPERTY>fast = BS{(7.95,19]|[6,7.05]|(7.05,7.95]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(7.95,19]</OUTCOME>
+	<OUTCOME>[6,7.05]</OUTCOME>
+	<OUTCOME>(7.05,7.95]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>BodyTemp</NAME>
+	<PROPERTY>description = BodyTemp</PROPERTY>
+	<PROPERTY>fast = BodyTemp{[98,99.5]|(99.5,102]|(102,103]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>[98,99.5]</OUTCOME>
+	<OUTCOME>(99.5,102]</OUTCOME>
+	<OUTCOME>(102,103]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>HeartRate</NAME>
+	<PROPERTY>description = HeartRate</PROPERTY>
+	<PROPERTY>fast = HeartRate{(79,90]|[7,77.5]|(77.5,79]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(79,90]</OUTCOME>
+	<OUTCOME>[7,77.5]</OUTCOME>
+	<OUTCOME>(77.5,79]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>RiskLevel</NAME>
+	<PROPERTY>description = RiskLevel</PROPERTY>
+	<PROPERTY>fast = RiskLevel{high risk|low risk|mid risk}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>high risk</OUTCOME>
+	<OUTCOME>low risk</OUTCOME>
+	<OUTCOME>mid risk</OUTCOME>
+</VARIABLE>
+
+<!-- Probability distributions -->
+<DEFINITION>
+	<FOR>Age</FOR>
+	<GIVEN>BS</GIVEN>
+	<TABLE>
+		0.140684 0.726236 0.13308
+		0.22542 0.230216 0.544365
+		0.146707 0.266467 0.586826
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>SystolicBP</FOR>
+	<GIVEN>RiskLevel</GIVEN>
+	<TABLE>
+		0.0441176 0.470588 0.485294
+		0 0 1
+		0.142857 0.014881 0.842262
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>DiastolicBP</FOR>
+	<GIVEN>SystolicBP</GIVEN>
+	<TABLE>
+		0.816667 0.183333 0
+		0.338346 0.661654 0
+		0.911084 0.0292326 0.0596833
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>BS</FOR>
+	<TABLE>
+		0.259369 0.411243 0.329389
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>BodyTemp</FOR>
+	<GIVEN>Age</GIVEN>
+	<TABLE>
+		0.727778 0.25 0.0222222
+		0.922872 0.0425532 0.0345745
+		0.740175 0.124454 0.135371
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>HeartRate</FOR>
+	<GIVEN>SystolicBP</GIVEN>
+	<TABLE>
+		0.05 0.416667 0.533333
+		0.345865 0.601504 0.0526316
+		0.267966 0.723508 0.00852619
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>RiskLevel</FOR>
+	<GIVEN>BS</GIVEN>
+	<TABLE>
+		0.752852 0.0304183 0.21673
+		0.0863309 0.422062 0.491607
+		0.113772 0.664671 0.221557
+	</TABLE>
+</DEFINITION>
+
+</NETWORK>
+</BIF>

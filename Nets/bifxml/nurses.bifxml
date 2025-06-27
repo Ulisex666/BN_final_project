@@ -1,0 +1,199 @@
+<?xml version="1.0" ?>
+
+<BIF VERSION="0.3">
+<NETWORK>
+<NAME>Nurses</NAME>
+<PROPERTY>software aGrUM</PROPERTY>
+
+<!-- Variables -->
+<VARIABLE TYPE="nature">
+	<NAME>parents</NAME>
+	<PROPERTY>description = parents</PROPERTY>
+	<PROPERTY>fast = parents{usual|pretentious|great_pret}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>usual</OUTCOME>
+	<OUTCOME>pretentious</OUTCOME>
+	<OUTCOME>great_pret</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>has_nurs</NAME>
+	<PROPERTY>description = has_nurs</PROPERTY>
+	<PROPERTY>fast = has_nurs{proper|less_proper|improper|critical|very_crit}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>proper</OUTCOME>
+	<OUTCOME>less_proper</OUTCOME>
+	<OUTCOME>improper</OUTCOME>
+	<OUTCOME>critical</OUTCOME>
+	<OUTCOME>very_crit</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>form</NAME>
+	<PROPERTY>description = form</PROPERTY>
+	<PROPERTY>fast = form{complete|completed|incomplete|foster}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>complete</OUTCOME>
+	<OUTCOME>completed</OUTCOME>
+	<OUTCOME>incomplete</OUTCOME>
+	<OUTCOME>foster</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>children</NAME>
+	<PROPERTY>description = children</PROPERTY>
+	<PROPERTY>fast = children{1hijo|2hijos|3hijos|4más}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>1hijo</OUTCOME>
+	<OUTCOME>2hijos</OUTCOME>
+	<OUTCOME>3hijos</OUTCOME>
+	<OUTCOME>4más</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>housing</NAME>
+	<PROPERTY>description = housing</PROPERTY>
+	<PROPERTY>fast = housing{convenient|less_conv|critical}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>convenient</OUTCOME>
+	<OUTCOME>less_conv</OUTCOME>
+	<OUTCOME>critical</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>finance</NAME>
+	<PROPERTY>description = finance</PROPERTY>
+	<PROPERTY>fast = finance{convenient|inconv}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>convenient</OUTCOME>
+	<OUTCOME>inconv</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>social</NAME>
+	<PROPERTY>description = social</PROPERTY>
+	<PROPERTY>fast = social{nonprob|slightly_prob|problematic}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>nonprob</OUTCOME>
+	<OUTCOME>slightly_prob</OUTCOME>
+	<OUTCOME>problematic</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>health</NAME>
+	<PROPERTY>description = health</PROPERTY>
+	<PROPERTY>fast = health{recommended|priority|not_recom}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>recommended</OUTCOME>
+	<OUTCOME>priority</OUTCOME>
+	<OUTCOME>not_recom</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>class</NAME>
+	<PROPERTY>description = class</PROPERTY>
+	<PROPERTY>fast = class{recommend|priority|not_recom|very_recom|spec_prior}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>recommend</OUTCOME>
+	<OUTCOME>priority</OUTCOME>
+	<OUTCOME>not_recom</OUTCOME>
+	<OUTCOME>very_recom</OUTCOME>
+	<OUTCOME>spec_prior</OUTCOME>
+</VARIABLE>
+
+<!-- Probability distributions -->
+<DEFINITION>
+	<FOR>parents</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		1 0 0
+		0.451008 0.347867 0.201125
+		0.333333 0.333333 0.333333
+		0.597561 0.402439 0
+		0.187438 0.312562 0.5
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>has_nurs</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		1 0 0 0 0
+		0.315049 0.315049 0.211908 0.108767 0.0492264
+		0.2 0.2 0.2 0.2 0.2
+		0.396341 0.402439 0.20122 0 0
+		0.0623145 0.0623145 0.187438 0.312562 0.375371
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>form</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		1 0 0 0
+		0.270042 0.255977 0.243319 0.230661
+		0.25 0.25 0.25 0.25
+		0.359756 0.304878 0.213415 0.121951
+		0.219585 0.239367 0.260138 0.28091
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>children</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		1 0 0 0
+		0.2827 0.255977 0.230661 0.230661
+		0.25 0.25 0.25 0.25
+		0.45122 0.304878 0.121951 0.121951
+		0.198813 0.239367 0.28091 0.28091
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>housing</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		1 0 0
+		0.379278 0.327239 0.293483
+		0.333333 0.333333 0.333333
+		0.634146 0.304878 0.0609756
+		0.260138 0.342235 0.397626
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>finance</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		1 0
+		0.52602 0.47398
+		0.5 0.5
+		0.664634 0.335366
+		0.458952 0.541048
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>social</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.5 0.5 0
+		0.355134 0.355134 0.289733
+		0.333333 0.333333 0.333333
+		0.5 0.5 0
+		0.296736 0.296736 0.406528
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>health</FOR>
+	<TABLE>
+		0.333333 0.333333 0.333333
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>class</FOR>
+	<GIVEN>health</GIVEN>
+	<TABLE>
+		0.000462963 0.558333 0 0.0759259 0.365278
+		0 0.429167 0 0 0.570833
+		0 0 1 0 0
+	</TABLE>
+</DEFINITION>
+
+</NETWORK>
+</BIF>

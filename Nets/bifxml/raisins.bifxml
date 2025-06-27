@@ -1,0 +1,146 @@
+<?xml version="1.0" ?>
+
+<BIF VERSION="0.3">
+<NETWORK>
+<NAME>Raisins</NAME>
+<PROPERTY>software aGrUM</PROPERTY>
+
+<!-- Variables -->
+<VARIABLE TYPE="nature">
+	<NAME>Area</NAME>
+	<PROPERTY>description = Area</PROPERTY>
+	<PROPERTY>fast = Area{(8.16e+04,2.35e+05]|[2.54e+04,8.16e+04]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(8.16e+04,2.35e+05]</OUTCOME>
+	<OUTCOME>[2.54e+04,8.16e+04]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>MajorAxisLength</NAME>
+	<PROPERTY>description = MajorAxisLength</PROPERTY>
+	<PROPERTY>fast = MajorAxisLength{(422,997]|[226,422]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(422,997]</OUTCOME>
+	<OUTCOME>[226,422]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>MinorAxisLength</NAME>
+	<PROPERTY>description = MinorAxisLength</PROPERTY>
+	<PROPERTY>fast = MinorAxisLength{[144,259]|(259,492]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>[144,259]</OUTCOME>
+	<OUTCOME>(259,492]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Eccentricity</NAME>
+	<PROPERTY>description = Eccentricity</PROPERTY>
+	<PROPERTY>fast = Eccentricity{(0.806,0.962]|[0.349,0.806]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(0.806,0.962]</OUTCOME>
+	<OUTCOME>[0.349,0.806]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>ConvexArea</NAME>
+	<PROPERTY>description = ConvexArea</PROPERTY>
+	<PROPERTY>fast = ConvexArea{(8.83e+04,2.78e+05]|[2.61e+04,8.83e+04]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(8.83e+04,2.78e+05]</OUTCOME>
+	<OUTCOME>[2.61e+04,8.83e+04]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Extent</NAME>
+	<PROPERTY>description = Extent</PROPERTY>
+	<PROPERTY>fast = Extent{(0.655,0.835]|[0.38,0.655]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(0.655,0.835]</OUTCOME>
+	<OUTCOME>[0.38,0.655]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Perimeter</NAME>
+	<PROPERTY>description = Perimeter</PROPERTY>
+	<PROPERTY>fast = Perimeter{(1.12e+03,2.7e+03]|[619,1.12e+03]}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>(1.12e+03,2.7e+03]</OUTCOME>
+	<OUTCOME>[619,1.12e+03]</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Class</NAME>
+	<PROPERTY>description = Class</PROPERTY>
+	<PROPERTY>fast = Class{Kecimen|Besni}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>Kecimen</OUTCOME>
+	<OUTCOME>Besni</OUTCOME>
+</VARIABLE>
+
+<!-- Probability distributions -->
+<DEFINITION>
+	<FOR>Area</FOR>
+	<TABLE>
+		0.462222 0.537778
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>MajorAxisLength</FOR>
+	<GIVEN>Perimeter</GIVEN>
+	<TABLE>
+		0.898876 0.101124
+		0.021978 0.978022
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>MinorAxisLength</FOR>
+	<GIVEN>Area</GIVEN>
+	<TABLE>
+		0.211538 0.788462
+		0.929752 0.0702479
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Eccentricity</FOR>
+	<GIVEN>MajorAxisLength</GIVEN>
+	<TABLE>
+		0.736585 0.263415
+		0.220408 0.779592
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>ConvexArea</FOR>
+	<GIVEN>Area</GIVEN>
+	<TABLE>
+		0.90625 0.09375
+		0 1
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Extent</FOR>
+	<GIVEN>Eccentricity</GIVEN>
+	<TABLE>
+		0.7 0.3
+		0.932653 0.0673469
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Perimeter</FOR>
+	<GIVEN>Area</GIVEN>
+	<TABLE>
+		0.966346 0.0336538
+		0.088843 0.911157
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Class</FOR>
+	<GIVEN>MajorAxisLength</GIVEN>
+	<TABLE>
+		0.1 0.9
+		0.834694 0.165306
+	</TABLE>
+</DEFINITION>
+
+</NETWORK>
+</BIF>

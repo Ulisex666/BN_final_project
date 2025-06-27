@@ -1,9 +1,6 @@
 import pandas as pd
 import numpy as np
 import pyagrum as gum
-from BayesNet.BayesNet import BayesNet
-from sklearn.preprocessing import KBinsDiscretizer
-from pandas.plotting import table
 
 def get_mutual_info(df: pd.DataFrame, var1:str, var2:str) -> float:
     """
@@ -37,7 +34,7 @@ def get_mutual_info(df: pd.DataFrame, var1:str, var2:str) -> float:
         
     return mutual_info
 
-def export_to_pyagrum(bn: BayesNet) -> gum.BayesNet:
+def export_to_pyagrum(bn) -> gum.BayesNet:
     """
     Convierte un objeto BayesNet propio a un objeto pyAgrum.BayesNet.
     """

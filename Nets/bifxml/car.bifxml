@@ -1,0 +1,145 @@
+<?xml version="1.0" ?>
+
+<BIF VERSION="0.3">
+<NETWORK>
+<NAME>Car</NAME>
+<PROPERTY>software aGrUM</PROPERTY>
+
+<!-- Variables -->
+<VARIABLE TYPE="nature">
+	<NAME>buying</NAME>
+	<PROPERTY>description = buying</PROPERTY>
+	<PROPERTY>fast = buying{vhigh|high|med|low}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>vhigh</OUTCOME>
+	<OUTCOME>high</OUTCOME>
+	<OUTCOME>med</OUTCOME>
+	<OUTCOME>low</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>maint</NAME>
+	<PROPERTY>description = maint</PROPERTY>
+	<PROPERTY>fast = maint{vhigh|high|med|low}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>vhigh</OUTCOME>
+	<OUTCOME>high</OUTCOME>
+	<OUTCOME>med</OUTCOME>
+	<OUTCOME>low</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>doors</NAME>
+	<PROPERTY>description = doors</PROPERTY>
+	<PROPERTY>fast = doors{2Puertas|3Puertas|4Puertas|5Mas}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>2Puertas</OUTCOME>
+	<OUTCOME>3Puertas</OUTCOME>
+	<OUTCOME>4Puertas</OUTCOME>
+	<OUTCOME>5Mas</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>persons</NAME>
+	<PROPERTY>description = persons</PROPERTY>
+	<PROPERTY>fast = persons{2P|4P|4Mas}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>2P</OUTCOME>
+	<OUTCOME>4P</OUTCOME>
+	<OUTCOME>4Mas</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>lug_boot</NAME>
+	<PROPERTY>description = lug_boot</PROPERTY>
+	<PROPERTY>fast = lug_boot{small|med|big}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>small</OUTCOME>
+	<OUTCOME>med</OUTCOME>
+	<OUTCOME>big</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>safety</NAME>
+	<PROPERTY>description = safety</PROPERTY>
+	<PROPERTY>fast = safety{low|med|high}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>low</OUTCOME>
+	<OUTCOME>med</OUTCOME>
+	<OUTCOME>high</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>class</NAME>
+	<PROPERTY>description = class</PROPERTY>
+	<PROPERTY>fast = class{unacc|acc|good}</PROPERTY>
+<!- OUTCOME are not used in pyAgrum BIFXML (see fast property) but are kept for compatibility->
+	<OUTCOME>unacc</OUTCOME>
+	<OUTCOME>acc</OUTCOME>
+	<OUTCOME>good</OUTCOME>
+</VARIABLE>
+
+<!-- Probability distributions -->
+<DEFINITION>
+	<FOR>buying</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.297521 0.267769 0.221488 0.213223
+		0.1875 0.28125 0.299479 0.231771
+		0 0 0.365672 0.634328
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>maint</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.297521 0.259504 0.221488 0.221488
+		0.1875 0.273438 0.299479 0.239583
+		0 0.0970149 0.365672 0.537313
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>doors</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.269421 0.247934 0.241322 0.241322
+		0.210938 0.257812 0.265625 0.265625
+		0.186567 0.246269 0.283582 0.283582
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>persons</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.476033 0.257851 0.266116
+		0 0.515625 0.484375
+		0 0.492537 0.507463
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>lug_boot</FOR>
+	<GIVEN>class</GIVEN>
+	<TABLE>
+		0.371901 0.323967 0.304132
+		0.273438 0.351562 0.375
+		0.156716 0.365672 0.477612
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>safety</FOR>
+	<TABLE>
+		0.333333 0.333333 0.333333
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>class</FOR>
+	<GIVEN>safety</GIVEN>
+	<TABLE>
+		1 0 0
+		0.619792 0.3125 0.0677083
+		0.480903 0.354167 0.164931
+	</TABLE>
+</DEFINITION>
+
+</NETWORK>
+</BIF>
